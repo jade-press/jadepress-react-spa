@@ -1,7 +1,7 @@
 
 'use strict'
 
-process.env.NODE_ENV = 'dev'
+process.env.NODE_ENV = 'development'
 
 let config0 = require('./config')
 ,port = config0.port
@@ -42,25 +42,25 @@ co(function* () {
     // For more information on Nightwatch's config file, see
     // http://nightwatchjs.org/guide#settings-file
 
-    // var spawn = require('cross-spawn')
-    // var runner = spawn(
-    //   './node_modules/.bin/nightwatch',
-    //   [
-    //     '--config', 'test/e2e/nightwatch.conf.js',
-    //     '--env', 'chrome'
-    //   ],
-    //   {
-    //     stdio: 'inherit'
-    //   }
-    // )
+    var spawn = require('cross-spawn')
+    var runner = spawn(
+      './node_modules/.bin/nightwatch',
+      [
+        '--config', 'test/e2e/nightwatch.conf.js',
+        '--env', 'chrome'
+      ],
+      {
+        stdio: 'inherit'
+      }
+    )
 
-    // runner.on('exit', function (code) {
-    //   process.exit(code)
-    // })
+    runner.on('exit', function (code) {
+      process.exit(code)
+    })
 
-    // runner.on('error', function (err) {
-    //   throw err
-    // })
+    runner.on('error', function (err) {
+      throw err
+    })
 
   })
   

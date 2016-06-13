@@ -1,17 +1,14 @@
-import React, { PropTypes, Component } from 'react'
 
-export default class Posts extends Component {
-  render() {
-    return (
-      <ul>
-        {this.props.posts.map((post, i) =>
-          <li key={i}>{post.title}</li>
-        )}
-      </ul>
-    )
-  }
-}
+import React, { Component, PropTypes } from 'react'
+import Post from './Post'
 
-Posts.propTypes = {
-  posts: PropTypes.array.isRequired
+const Posts = function(posts, onLinkClick, ctx) {
+	return (
+		<div className="posts">
+			{
+				posts.map(Post(onLinkClick, ctx))
+			}
+		</div>
+	)
 }
+export default Posts

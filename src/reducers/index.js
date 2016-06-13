@@ -1,61 +1,64 @@
-import { combineReducers } from 'redux'
-import {
-  SELECT_REDDIT, INVALIDATE_REDDIT,
-  REQUEST_POSTS, RECEIVE_POSTS
-} from '../actions'
 
-function selectedReddit(state = 'reactjs', action) {
+import { pageSize, maxLink } from '../lib/tools'
+
+const rootReducer = (state = {
+  page: 1
+  ,pageSize: 20
+  ,total: 0
+  ,maxLink: 5
+  ,title: ''
+  ,posts: []
+  ,cats: []
+  ,onloadCats: false
+  ,onloadPosts: false
+  ,query: {}
+  ,querys: {}
+  ,isSinglePost: false
+}, action) => {
+
   switch (action.type) {
-    case SELECT_REDDIT:
-      return action.reddit
+    case 'SET_POSTS':
+      return Object.assign({}, state, {
+        posts: action.items
+      })
+    case 'SET_CATS':
+      return Object.assign({}, state, {
+        cats: action.items
+      })
+    case 'SET_ONLOAD_POSTS':
+      return Object.assign({}, state, {
+        onloadPosts: action.status
+      })
+    case 'SET_ONLOAD_CATS':
+      return Object.assign({}, state, {
+        onloadCats: action.status
+      })
+    case 'SET_PAGE':
+      return Object.assign({}, state, {
+        page: action.page
+      })
+    case 'SET_TOTAL':
+      return Object.assign({}, state, {
+        page: action.total
+      })
+    case 'SET_TITLE':
+      return Object.assign({}, state, {
+        title: action.title
+      })
+    case 'SET_QUERY':
+      return Object.assign({}, state, {
+        query: action.query
+        ,querys: Object.assign({}, state.querys, {
+          [action.path]: action.query
+        })
+      })
+    case 'SET_SINGLE':
+      return Object.assign({}, state, {
+        isSinglePost: action.single
+      })
     default:
       return state
   }
 }
-
-function posts(state = {
-  isFetching: false,
-  didInvalidate: false,
-  items: []
-}, action) {
-  switch (action.type) {
-    case INVALIDATE_REDDIT:
-      return Object.assign({}, state, {
-        didInvalidate: true
-      })
-    case REQUEST_POSTS:
-      return Object.assign({}, state, {
-        isFetching: true,
-        didInvalidate: false
-      })
-    case RECEIVE_POSTS:
-      return Object.assign({}, state, {
-        isFetching: false,
-        didInvalidate: false,
-        items: action.posts,
-        lastUpdated: action.receivedAt
-      })
-    default:
-      return state
-  }
-}
-
-function postsByReddit(state = { }, action) {
-  switch (action.type) {
-    case INVALIDATE_REDDIT:
-    case RECEIVE_POSTS:
-    case REQUEST_POSTS:
-      return Object.assign({}, state, {
-        [action.reddit]: posts(state[action.reddit], action)
-      })
-    default:
-      return state
-  }
-}
-
-const rootReducer = combineReducers({
-  postsByReddit,
-  selectedReddit
-})
 
 export default rootReducer

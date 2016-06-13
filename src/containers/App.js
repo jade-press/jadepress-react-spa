@@ -1,98 +1,150 @@
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { selectReddit, fetchPostsIfNeeded, invalidateReddit } from '../actions'
-import Picker from '../components/Picker'
+import React, { Component } from 'react'
 import Posts from '../components/Posts'
+import Title from '../components/Title'
+import Footer from '../components/Footer'
+import Nav from './Nav'
+import { fetchItems } from '../actions'
+import { post, query, params, path, href, host } from '../lib/tools'
+import { connect } from 'react-redux'
+import { createHistory } from 'history'
+const history = createHistory()
 
 class App extends Component {
+
   constructor(props) {
+
     super(props)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleRefreshClick = this.handleRefreshClick.bind(this)
+
+    $(window).on('resize', this.checkNavBar)
+    const { dispatch } = this.props
+    var action = {
+      type: 'SET_TITLE'
+      ,title: ''
+    }
+    let body = {}
+    if(query.title && path === '/s') {
+      body.title = query.title
+      action.title = 'search ' + query.title
+    }
+    else if(params.slug) {
+      body.slug = params.slug
+      action.title = ''
+    }
+    else if(params.id) {
+      body.id = params.id
+      action.title = ''
+    }
+    else if(params._id) {
+      body._id = params._id
+      action.title = ''
+    } 
+    else if(params.catslug) {
+      body.catslug = params.catslug
+      action.title = ''
+    }
+    else if(params.catid) {
+      body.catid = params.catid
+      action.title = ''
+    }
+    else if(params.cat_id) {
+      body.catid = params.cat_id
+      action.title = ''
+    }
+
+    dispatch(action)
+
+    fetchItems(dispatch, 'posts', body, href)
+    fetchItems(dispatch, 'cats', {})
+
+    history.listen(location => {
+
+      var loc = history.getCurrentLocation()
+      var path = host + loc.pathname + (loc.query || '')
+
+      if(this.props.querys[path]) {
+        fetchItems(dispatch, 'posts', this.props.querys[path], path)
+      }
+    })
+  }
+
+  checkNavBar() {
+    //collapse button
+    if(!$('.navbar-toggler').is(':visible')) $('#menus').addClass('in')
+    else $('#menus').removeClass('in')
+  }
+
+  postAction() {
+    window.prettyPrint()
+    this.checkNavBar()
   }
 
   componentDidMount() {
-    const { dispatch, selectedReddit } = this.props
-    dispatch(fetchPostsIfNeeded(selectedReddit))
+    this.postAction()
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.selectedReddit !== this.props.selectedReddit) {
-      const { dispatch, selectedReddit } = nextProps
-      dispatch(fetchPostsIfNeeded(selectedReddit))
+  componentDidUpdate() {
+    this.postAction()
+  }
+
+  onSearch(e) {
+
+    const { dispatch } = this.props
+    e.preventDefault()
+    if(!this.props.query.title) return
+    var path = host + '/s?title=' + this.props.query.title
+    history.push(path.replace(host, ''))
+    fetchItems(dispatch, 'posts', this.props.query, path)
+
+  }
+
+  onChange(e) {
+    const { dispatch } = this.props
+    var title = e.target.value
+    dispatch({
+      type: 'SET_QUERY'
+      ,query: {
+        title: title
+      }
+    })
+  }
+
+  onLinkClick(query, path, e) {
+    e.preventDefault()
+    const { dispatch } = this.props
+    if(JSON.stringify(this.props.query) !== JSON.stringify(query)) {
+      history.push(path)
+      fetchItems(dispatch, 'posts', query, host + path)
     }
   }
 
-  handleChange(nextReddit) {
-    this.props.dispatch(selectReddit(nextReddit))
-  }
-
-  handleRefreshClick(e) {
-    e.preventDefault()
-
-    const { dispatch, selectedReddit } = this.props
-    dispatch(invalidateReddit(selectedReddit))
-    dispatch(fetchPostsIfNeeded(selectedReddit))
-  }
-
   render() {
-    const { selectedReddit, posts, isFetching, lastUpdated } = this.props
-    const isEmpty = posts.length === 0
+
     return (
-      <div>
-        <Picker value={selectedReddit}
-                onChange={this.handleChange}
-                options={[ 'reactjs', 'frontend' ]} />
-        <p>
-          {lastUpdated &&
-            <span>
-              Last updated at {new Date(lastUpdated).toLocaleTimeString()}.
-              {' '}
-            </span>
-          }
-          {!isFetching &&
-            <a href="#"
-               onClick={this.handleRefreshClick}>
-              Refresh
-            </a>
-          }
-        </p>
-        {isEmpty
-          ? (isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
-          : <div style={{ opacity: isFetching ? 0.5 : 1 }}>
-              <Posts posts={posts} />
-            </div>
-        }
+      <div id="content" className="container">
+        <div className="row">
+          <Nav {...this.props} onLinkClick={this.onLinkClick} onSearch={this.onSearch} onChange={this.onChange} />
+          <div id="main" className="col-sm-8 col-md-8 col-lg-9 p-y-2 p-x-3">
+            {
+              Title(this.props.title)
+            }
+            {
+              Posts(this.props.posts, this.onLinkClick, this)
+            }
+            { Footer() }
+          </div>
+        </div>
+        
       </div>
     )
   }
 }
 
-App.propTypes = {
-  selectedReddit: PropTypes.string.isRequired,
-  posts: PropTypes.array.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  lastUpdated: PropTypes.number,
-  dispatch: PropTypes.func.isRequired
-}
-
 function mapStateToProps(state) {
-  const { selectedReddit, postsByReddit } = state
-  const {
-    isFetching,
-    lastUpdated,
-    items: posts
-  } = postsByReddit[selectedReddit] || {
-    isFetching: true,
-    items: []
-  }
 
   return {
-    selectedReddit,
-    posts,
-    isFetching,
-    lastUpdated
+    ...state
   }
+
 }
 
 export default connect(mapStateToProps)(App)

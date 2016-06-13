@@ -9,7 +9,7 @@ publicApis.push(
 
 {
 	url: '/public-cats'
-	,method: 'get'
+	,method: 'post'
 	,name: 'public-cats'
 	,desc: ''
 	,lib: 'route/public-page'
@@ -18,7 +18,7 @@ publicApis.push(
 ,
 {
 	url: '/public-posts'
-	,method: 'get'
+	,method: 'post'
 	,name: 'public-posts'
 	,desc: ''
 	,lib: 'route/public-page'

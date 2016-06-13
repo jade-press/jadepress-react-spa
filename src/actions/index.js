@@ -1,64 +1,102 @@
 import fetch from 'isomorphic-fetch'
+import { host } from '../lib/tools'
 
-export const REQUEST_POSTS = 'REQUEST_POSTS'
-export const RECEIVE_POSTS = 'RECEIVE_POSTS'
-export const SELECT_REDDIT = 'SELECT_REDDIT'
-export const INVALIDATE_REDDIT = 'INVALIDATE_REDDIT'
+/*
+  @param prop, 'posts' or 'cats'
+  @param status, boolean 
+*/
 
-export function selectReddit(reddit) {
+export function setStatus(prop, status) {
   return {
-    type: SELECT_REDDIT,
-    reddit
+    type: 'SET_ONLOAD_' + prop.toUpperCase()
+    ,status: status
   }
 }
 
-export function invalidateReddit(reddit) {
+export function setItems(prop, items) {
   return {
-    type: INVALIDATE_REDDIT,
-    reddit
+    type: 'SET_' + prop.toUpperCase()
+    ,items: items
   }
 }
 
-function requestPosts(reddit) {
-  return {
-    type: REQUEST_POSTS,
-    reddit
+function normalize(json) {
+  if(json.errorMsg || json.errs) {
+    json.err = json.errorMsg || json.errs.join(';')
   }
+  return json
 }
 
-function receivePosts(reddit, json) {
-  return {
-    type: RECEIVE_POSTS,
-    reddit,
-    posts: json.data.children.map(child => child.data),
-    receivedAt: Date.now()
+function fill(items) {
+  var item = items[0]
+  var id = item.id + ''
+  var r = Math.floor(Math.random() * 8 + 6)
+  var res = []
+  for(var i = 0;i < r;i ++) {
+    var it = Object.assign({}, item, {
+      _id: id + i
+    })
+    res.push(it)
   }
+  return res
 }
 
-function fetchPosts(reddit) {
-  return dispatch => {
-    dispatch(requestPosts(reddit))
-    return fetch(`https://www.reddit.com/r/${reddit}.json`)
-      .then(response => response.json())
-      .then(json => dispatch(receivePosts(reddit, json)))
-  }
-}
+export function fetchItems(dispatch, prop, body, path) {
 
-function shouldFetchPosts(state, reddit) {
-  const posts = state.postsByReddit[reddit]
-  if (!posts) {
-    return true
+  if(prop === 'posts') {
+    dispatch({
+      type: 'SET_PAGE'
+      ,page: body.page || 1
+    })
+    dispatch({
+      type: 'SET_QUERY'
+      ,query: body
+      ,path: path
+    })
+    dispatch({
+      type: 'SET_SINGLE'
+      ,single: !!(body._id || body.slug || body.id)
+    })
   }
-  if (posts.isFetching) {
-    return false
-  }
-  return posts.didInvalidate
-}
 
-export function fetchPostsIfNeeded(reddit) {
-  return (dispatch, getState) => {
-    if (shouldFetchPosts(getState(), reddit)) {
-      return dispatch(fetchPosts(reddit))
+  dispatch(setStatus(prop, true))
+
+  return fetch(host + '/public-' + prop, {
+    method: 'POST'
+    ,headers: {
+      'Accept': 'application/json'
+      ,'Content-Type': 'application/json'
     }
-  }
+    ,body: JSON.stringify(body)
+  })
+  .then(response => response.json())
+  .then(json => {
+
+    dispatch(setStatus(prop, false))
+    var res = normalize(json)
+    if(res.err) return console.log(body.err)
+    var items = res.result
+    if(prop === 'posts') {
+      dispatch({
+        type: 'SET_TOTAL'
+        ,total: res.total
+      })
+    }
+    if(body.cat_id || body.catslug) items = fill(items)
+    dispatch(setItems(prop, items))
+
+    if(res.title) {
+      dispatch({
+        type: 'SET_TITLE'
+        ,title: 'category ' + title
+      })
+    }
+
+  })
+  .catch(e => {
+    dispatch(setStatus(prop, false))
+    console.log(e.stack || e)
+  })
+
 }
+

@@ -14,6 +14,7 @@ ugly = require('gulp-uglify')
 ,_ = require('lodash')
 ,path = require('path')
 ,fs = require('fs')
+,exec = require('child_process').exec
 
 let
 cssFolder = __dirname + '/public/css'
@@ -21,9 +22,6 @@ cssFolder = __dirname + '/public/css'
 
 ,stylusOptions = {
 	compress: true
-}
-,uglyOptions = {
-
 }
 
 gulp.task('stylus', function() {
@@ -42,23 +40,25 @@ gulp.task('stylus', function() {
 
 })
 
+//dev server
+gulp.task('server-dev',  function (cb) {
 
-gulp.task('ugly', function() {
+	exec('node --debug build/dev-server.js', function (err, stdout, stderr) {
+		cb(stdout)
+		cb(stderr)
+		cb(err)
+	})
 
-	gulp.src(jsFolder + '/*.js')
-		.pipe(newer({
-			dest: jsFolder
-			,map: function(path) {
-				return path.replace(/\.dev.js$/, '.min.js')
-			}
-		}))
-		.pipe(plumber())
-		.pipe(rename(function (path) {
-			path.basename = path.basename.replace('.dev', '.min')
-		}))
-		.pipe(gulp.dest(jsFolder))
-		.pipe(ugly(uglyOptions))
-		.pipe(gulp.dest(jsFolder))
+})
+
+//webpack
+gulp.task('webpack-dev',  function (cb) {
+	var devPort = require('./build/dev-config').port
+	exec('webpack-dev-server --inline --hot --content-base public/ --history-api-fallback --open --port ' + devPort, function (err, stdout, stderr) {
+		cb(stdout)
+		cb(stderr)
+		cb(err)
+	})
 
 })
 
@@ -75,9 +75,11 @@ gulp.task('watch',  function () {
 })
 
 
-
-
 gulp.task('default', ['watch'])
 gulp.task('dist', function() {
 	runSequence('stylus', 'ugly')
+})
+
+gulp.task('dev', function() {
+	runSequence(['server-dev', 'webpack-dev'])
 })
