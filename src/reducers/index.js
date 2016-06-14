@@ -2,8 +2,7 @@
 import { pageSize, maxLink } from '../lib/tools'
 
 const rootReducer = (state = {
-  page: 1
-  ,pageSize: 20
+  pageSize: pageSize
   ,total: 0
   ,maxLink: 5
   ,title: ''
@@ -33,13 +32,9 @@ const rootReducer = (state = {
       return Object.assign({}, state, {
         onloadCats: action.status
       })
-    case 'SET_PAGE':
-      return Object.assign({}, state, {
-        page: action.page
-      })
     case 'SET_TOTAL':
       return Object.assign({}, state, {
-        page: action.total
+        total: action.total
       })
     case 'SET_TITLE':
       return Object.assign({}, state, {

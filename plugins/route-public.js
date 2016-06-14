@@ -51,12 +51,14 @@ extend.publicCatspromise = function* (body, host) {
 	let sea1 = _.pick(body, ['_id', 'id', 'slug', 'name'])
 	sea1.page = page
 	sea1.pageSize = pageSize
-	let obj = yield getCats(sea1)
 
+	console.log(sea1)
+	let obj = yield getCats(sea1)
+	console.log(obj)
 	let res = {
 		pageSize: pageSize
-		,total: obj.total
-		,result: obj.cats
+		,total: obj?(obj.total || 0): 0
+		,result: obj?(obj.cats?obj.cats:[obj]):[]
 	}
 
 	return Promise.resolve(res)
@@ -99,19 +101,17 @@ extend.publicPostsPromise = function* (body, host) {
 
 	let res = {
 		pageSize: pageSize
-		,total: obj.total
-		,result: obj.posts || [obj]
+		,total: obj?(obj.total || 0):0
+		,result: obj?(obj.posts || [obj]):[]
 	}
 
 	if(sea1.catslug || sea1.cat_id || sea1.catid) {
-		let catBody = {
-			slug: sea1.catslug
-			,_id: sea1.cat_id
-			,id: sea1.catid
-		}
-
-		let cat = extend.publicCatspromise(body, host)
-		if(cat) res.title = cat.name
+		let catBody = {}
+		if(sea1.catslug) catBody.slug = sea1.catslug
+		if(sea1.catid) catBody.id = sea1.catid
+		if(sea1.cat_id) catBody._id = sea1.cat_id
+		let cat = yield extend.publicCatspromise(catBody, host)
+		if(cat.result.length) res.title = cat.result[0].name
 	}
 
 	return Promise.resolve(res)

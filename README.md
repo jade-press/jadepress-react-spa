@@ -13,10 +13,6 @@ exports.setting = {
 
     //...other setting
     theme: 'jadepress-react-spa'
-    ,plugins: {
-        'jadepress-react-spa': '*'
-        //...other plugins
-    }
     //...other setting
 
 }

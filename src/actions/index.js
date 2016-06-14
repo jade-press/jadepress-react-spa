@@ -29,6 +29,7 @@ function normalize(json) {
 
 function fill(items) {
   var item = items[0]
+  if(!item) return items
   var id = item.id + ''
   var r = Math.floor(Math.random() * 8 + 6)
   var res = []
@@ -44,10 +45,6 @@ function fill(items) {
 export function fetchItems(dispatch, prop, body, path) {
 
   if(prop === 'posts') {
-    dispatch({
-      type: 'SET_PAGE'
-      ,page: body.page || 1
-    })
     dispatch({
       type: 'SET_QUERY'
       ,query: body
@@ -82,13 +79,20 @@ export function fetchItems(dispatch, prop, body, path) {
         ,total: res.total
       })
     }
-    if(body.cat_id || body.catslug) items = fill(items)
+
+    if(body.cat_id || body.catslug) {
+      items = fill(items)
+      dispatch({
+        type: 'SET_TOTAL'
+        ,total: 35
+      })
+    }
     dispatch(setItems(prop, items))
 
     if(res.title) {
       dispatch({
         type: 'SET_TITLE'
-        ,title: 'category ' + title
+        ,title: 'category ' + res.title
       })
     }
 

@@ -43,7 +43,7 @@ gulp.task('stylus', function() {
 //dev server
 gulp.task('server-dev',  function (cb) {
 
-	exec('node --debug build/dev-server.js', function (err, stdout, stderr) {
+	exec('node build/dev-server.js', function (err, stdout, stderr) {
 		cb(stdout)
 		cb(stderr)
 		cb(err)

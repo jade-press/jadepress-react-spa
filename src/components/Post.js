@@ -12,6 +12,7 @@ const Post = (onLinkClick, ctx) => {
 		const url = createUrl(post, host, publicRoute.post)
 		const isSingle = ctx.props.isSinglePost
 		var link = ''
+		console.log(post._id)
 		if(isSingle) {
 			link = <h2>{post.title}</h2>
 		} else {

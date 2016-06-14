@@ -7,6 +7,7 @@ console.log()
 export const {
 	host
 	,href
+	,path
 	,cdn
 	,fileServer
 	,publicRoute
