@@ -11,6 +11,7 @@ import ReactPagenav from 'react-pagenav'
 
 const history = createHistory()
 
+
 class App extends Component {
 
   constructor(props) {
@@ -28,7 +29,6 @@ class App extends Component {
     }
 
     if(query.title && path === '/s') {
-      console.log(query)
       body.title = query.title
       action.title = 'search ' + query.title
     }
@@ -118,8 +118,6 @@ class App extends Component {
     var query = this.query
     query.page = page
     history.push(path.replace(host, ''))
-    console.log('query')
-    console.log(query)
     fetchItems(dispatch, 'posts', query, path)
   }
 
@@ -135,7 +133,7 @@ class App extends Component {
     const { dispatch } = this.props
     if(JSON.stringify(this.props.query) !== JSON.stringify(query)) {
       history.push(path)
-      if(query.catid || query.cat_id || query._id) {
+      if(query.catid || query.cat_id || query.catslug) {
         dispatch({
           type: 'SET_TITLE'
           ,title: 'loading category... '
@@ -158,9 +156,8 @@ class App extends Component {
         <div className="row">
           <Nav {...this.props} onLinkClick={this.onLinkClick} onSearch={this.onSearch} onChange={this.onChange} />
           <div id="main" className="col-sm-8 col-md-8 col-lg-9 p-y-2 p-x-3">
-            {
-              Title(this.props.title)
-            }
+            { this.props.onloadCats || this.props.onloadPosts?<div className="loading">loading...</div>:'' }
+            { Title(this.props.title) }
             {
               Posts(this.props.posts, this.onLinkClick, this)
             }

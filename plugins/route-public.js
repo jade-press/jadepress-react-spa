@@ -52,9 +52,8 @@ extend.publicCatspromise = function* (body, host) {
 	sea1.page = page
 	sea1.pageSize = pageSize
 
-	console.log(sea1)
 	let obj = yield getCats(sea1)
-	console.log(obj)
+
 	let res = {
 		pageSize: pageSize
 		,total: obj?(obj.total || 0): 0

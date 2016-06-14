@@ -8,7 +8,12 @@ let config = {
 	output: {
 		filename: 'bundle.js',
 		publicPath: '/js/',
-		path: path.resolve(__dirname, '/public/js/')
+		path: path.resolve(__dirname, 'public/js/'),
+		libraryTarget: 'var',
+	},
+	externals: {
+	 	'react': 'React'
+	 	,'react-dom': 'ReactDOM'
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin()
@@ -45,6 +50,32 @@ let config = {
 			}
 		}
 	}
+}
+
+if(process.env.NODE_ENV === 'production') {
+
+	config.plugins = [
+		new webpack.optimize.DedupePlugin(),
+		new webpack.optimize.OccurenceOrderPlugin(),
+		new webpack.optimize.MinChunkSizePlugin({
+			minChunkSize: 51200, // ~50kb
+		}),
+		new webpack.optimize.UglifyJsPlugin({
+			mangle:   true,
+			compress: {
+					warnings: false, // Suppress uglification warnings
+			}
+		})
+    ,new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': "'production'"
+      }
+    })
+	]
+
+	delete config.devtool
+	delete config.devServer
+
 }
 
 module.exports = config

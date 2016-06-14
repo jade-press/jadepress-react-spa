@@ -1,23 +1,19 @@
 {
   "name": "jadepress-reat-spa",
-  "version": "0.9.0",
+  "version": "0.0.1",
   "description": "jade press react spa theme",
   "main": "index.js",
   "scripts": {
     "test": "npm run e2e",
     "e2e": "node test/e2e/runner.js",
-    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "dev": "gulp dev",
     "dev:webpack": "gulp webpack-dev",
     "dev:server": "gulp server-dev",
-    "start:prod": "npm run build && node server.bundle.js",
-    "build:client": "webpack",
-    "build:server": "webpack --config webpack.server.config.js",
-    "build": "npm run build:client && npm run build:server"
+    "build": "NODE_ENV=production webpack -p",
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jade-press/jadepress-theme-pi.git"
+    "url": "https://github.com/jade-press/jadepress-react-spa.git"
   },
   "keywords": [
     "jadepress",
@@ -76,7 +72,7 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jade-press/jadepress-theme-pi/issues"
+    "url": "https://github.com/jade-press/jadepress-react-spa/issues"
   },
-  "homepage": "https://github.com/jade-press/jadepress-theme-pi"
+  "homepage": "https://github.com/jade-press/jadepress-react-spa"
 }

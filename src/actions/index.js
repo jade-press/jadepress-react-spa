@@ -71,7 +71,7 @@ export function fetchItems(dispatch, prop, body, path) {
 
     dispatch(setStatus(prop, false))
     var res = normalize(json)
-    if(res.err) return console.log(body.err)
+    if(res.err) return console.log(res.err)
     var items = res.result
     if(prop === 'posts') {
       dispatch({
@@ -80,13 +80,6 @@ export function fetchItems(dispatch, prop, body, path) {
       })
     }
 
-    if(body.cat_id || body.catslug) {
-      items = fill(items)
-      dispatch({
-        type: 'SET_TOTAL'
-        ,total: 35
-      })
-    }
     dispatch(setItems(prop, items))
 
     if(res.title) {

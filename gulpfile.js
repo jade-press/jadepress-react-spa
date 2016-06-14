@@ -18,7 +18,7 @@ ugly = require('gulp-uglify')
 
 let
 cssFolder = __dirname + '/public/css'
-,jsFolder = __dirname + '/public/js'
+,jsFolder = __dirname + '/src'
 
 ,stylusOptions = {
 	compress: true
@@ -40,10 +40,21 @@ gulp.task('stylus', function() {
 
 })
 
+//build
+gulp.task('build',  function (cb) {
+
+	exec('NODE_ENV=production webpack -p', function (err, stdout, stderr) {
+		cb(stdout)
+		cb(stderr)
+		cb(err)
+	})
+
+})
+
 //dev server
 gulp.task('server-dev',  function (cb) {
 
-	exec('node build/dev-server.js', function (err, stdout, stderr) {
+	exec('node --debug build/dev-server.js', function (err, stdout, stderr) {
 		cb(stdout)
 		cb(stderr)
 		cb(err)
@@ -68,18 +79,15 @@ gulp.task('watch',  function () {
 		runSequence('stylus')
 	})
 
-	watch(jsFolder, function() {
-		runSequence('ugly')
+	watch(jsFolder + '/**/*.js', function() {
+		runSequence('build')
 	})
 
 })
 
 
-gulp.task('default', ['watch'])
-gulp.task('dist', function() {
-	runSequence('stylus', 'ugly')
-})
+gulp.task('default', ['dev'])
 
 gulp.task('dev', function() {
-	runSequence(['server-dev', 'webpack-dev'])
+	runSequence(['server-dev', 'webpack-dev', 'watch'])
 })

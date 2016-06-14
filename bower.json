@@ -1,7 +1,7 @@
 {
   "name": "jadepress-react-spa",
   "version": "0.0.1",
-  "homepage": "http://jade-press.org",
+  "homepage": "https://github.com/jade-press/jadepress-react-spa",
   "author": {
     "email": "zxdong@gmail.com",
     "name": "ZHAO Xudong",
@@ -9,22 +9,30 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jade-press/blog.jade-press.org"
+    "url": "https://github.com/jade-press/jadepress-react-spa"
   },
   "description": "jade-press default theme",
-  "bugs": "https://github.com/zxdong262/jadepress-theme-pi/issues",
-  "main": "app.js",
+  "bugs": "https://github.com/zxdong262/jadepress-react-spa/issues",
+  "main": "src/index.js",
   "moduleType": [
     "globals"
   ],
   "keywords": [
-    "pi",
+    "react",
     "theme",
     "jade-press"
   ],
   "license": "MIT",
   "ignore": [
-
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "static",
+    "test",
+    "plugins",
+    "build",
+    "public"
   ],
   "devDependencies": {
     "jade-press": "*"

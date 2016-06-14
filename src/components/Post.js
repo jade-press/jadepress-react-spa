@@ -2,7 +2,6 @@
 //Post
 
 import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
 import CatLink from './CatLink'
 import { createUrl, host, publicRoute } from '../lib/tools'
 
@@ -12,9 +11,8 @@ const Post = (onLinkClick, ctx) => {
 		const url = createUrl(post, host, publicRoute.post)
 		const isSingle = ctx.props.isSinglePost
 		var link = ''
-		console.log(post._id)
 		if(isSingle) {
-			link = <h2>{post.title}</h2>
+			link = <h1>{post.title}</h1>
 		} else {
 			link = (
 				<h2>
