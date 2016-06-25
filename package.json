@@ -1,6 +1,6 @@
 {
   "name": "jadepress-reat-spa",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "jade press react spa theme",
   "main": "index.js",
   "scripts": {
@@ -68,7 +68,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "peerDependencies": {
-    "jade-press": "*"
+    "jade-press": "latest"
   },
   "license": "MIT",
   "bugs": {

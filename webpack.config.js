@@ -37,11 +37,10 @@ let config = {
 		,quiet: false
 		,proxy: {
 			'*': {
-				target: 'http://localhost:9808',
+				target: 'http://localhost:9809',
 				secure: false,
 				ws: false,
 				bypass: function(req, res, opt) {
-					console.log(req.path)
 					if(/\.json$/.test(req.path) || /\.bundle\.js/.test(req.path)) {
 						console.log('bypass', req.path)
 						return req.path

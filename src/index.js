@@ -1,5 +1,6 @@
 
-import 'babel-polyfill'
+var tools = require('./lib/tools')
+tools.init(window.h5)
 import React from 'react'
 import { render } from 'react-dom'
 import App from './containers/App'

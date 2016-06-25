@@ -13,13 +13,10 @@ var
 local = ext.local
 ,setting = ext.setting
 ,tools = ext.tools
-,log = ext.log
-,err = ext.err
-,db = ext.db
+,log = ext.tools.log
+,err = ext.tools.err
 ,path = require('path')
 ,baseThemeViewPath = ext.baseThemeViewPath
-,Pager = ext.Pager
-,pager = ext.pager
 ,getCats = ext.getCats
 ,getPosts = ext.getPosts
 ,buildThemeRes = tools.buildThemeRes
