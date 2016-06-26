@@ -7,7 +7,7 @@
 ## use
 ```javascript
 
-//in jadepress config.js
+//in jade-press config.js
 //...
 exports.setting = {
 
@@ -17,8 +17,9 @@ exports.setting = {
 
 }
 //...
-//then gulp install
-//or npm i jadepress-react-spa
+//then
+npm i jadepress-react-spa
+bower install jadepress-react-spa
 ```
 
 ## test
@@ -28,7 +29,6 @@ exports.setting = {
 
 git clone https://github.com/jade-press/jadepress-react-spa.git
 cd jadepress-react-spa
-npm install mocha -g
 npm install bower -g
 npm install
 bower install
