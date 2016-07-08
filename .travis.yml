@@ -34,4 +34,4 @@ before_install:
 before_script:
   - npm install -g bower
   - bower install
-  - npm i jade-press
+  - npm i jade-press@latest
