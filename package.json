@@ -1,6 +1,6 @@
 {
-  "name": "jadepress-reat-spa",
-  "version": "0.1.0",
+  "name": "jadepress-react-spa",
+  "version": "0.1.1",
   "description": "jade press react spa theme",
   "main": "index.js",
   "scripts": {
