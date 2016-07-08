@@ -68,7 +68,7 @@
     "webpack-dev-server": "1.14.1"
   },
   "peerDependencies": {
-    "jade-press": "0.14.8"
+    "jade-press": "*"
   },
   "license": "MIT",
   "bugs": {
