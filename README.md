@@ -19,7 +19,6 @@ exports.setting = {
 //...
 //then
 npm i jadepress-react-spa
-bower install jadepress-react-spa
 ```
 
 ## test
