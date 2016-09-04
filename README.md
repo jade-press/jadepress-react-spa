@@ -28,9 +28,7 @@ npm i jadepress-react-spa
 
 git clone https://github.com/jade-press/jadepress-react-spa.git
 cd jadepress-react-spa
-npm install bower -g
 npm install
-bower install
 npm run test
 
 ```
