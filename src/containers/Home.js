@@ -13,9 +13,10 @@ class Home extends Component {
 
   }
 
-  componentDidMount() {
-    let {params} = this.props
-    let {query} = this.props.location
+  ajax(nextProps) {
+    let props = nextProps || this.props
+    let {params} = props
+    let {query} = props.location
     this.props.getPosts({
       ...query
     }, 'set_posts', () => {
@@ -24,6 +25,20 @@ class Home extends Component {
         ,data: ''
       })
     })
+  }
+
+  componentDidMount() {
+    this.ajax()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(JSON.stringify(nextProps.location.query) !== JSON.stringify(this.props.location.query)) {
+      this.ajax(nextProps)
+    }
+  }
+
+  componentDidUpdate() {
+    window.prettyPrint()
   }
 
   render() {

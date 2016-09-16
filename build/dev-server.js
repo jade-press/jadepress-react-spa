@@ -23,7 +23,7 @@ config.setting.plugins = {}
 config.setting.mongoStoreOptions.url = 'mongodb://127.0.0.1:27017/test0'
 config.setting.dbLink = 'mongodb://127.0.0.1:27017/test0'
 config.local.port = port
-
+config.local.pageSize = 2
 let init = require('jade-press').init
 
 co(function* () {

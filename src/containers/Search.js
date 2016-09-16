@@ -13,9 +13,9 @@ class S extends Component {
 
   }
 
-  componentDidMount() {
-    let {params} = this.props
-    let {query} = this.props.location
+  ajax(props = this.props) {
+    let {params} = props
+    let {query} = props.location
     this.props.getPosts({
       ...query
     }, 'set_posts', () => {
@@ -26,12 +26,13 @@ class S extends Component {
     })
   }
 
+  componentDidMount() {
+    this.ajax()
+  }
+
   componentWillReceiveProps(nextProps) {
     if(JSON.stringify(nextProps.location.query) !== JSON.stringify(this.props.location.query)) {
-      let {query} = nextProps.location
-      this.props.getPosts({
-        ...query
-      }, 'set_posts')
+      this.ajax(nextProps)
     }
   }
 

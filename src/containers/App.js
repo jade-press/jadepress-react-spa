@@ -5,6 +5,7 @@ import * as actions from '../actions'
 import Nav from '../components/Nav'
 import Title from '../components/Title'
 import Footer from '../components/Footer'
+import Pager from '../components/Pager'
 import { siteName } from '../common/constants'
 
 class App extends Component {
@@ -51,6 +52,7 @@ class App extends Component {
             { this.props.onload || this.props.onloadCats || this.props.onloadPosts?<div className="loading">loading...</div>:null }
             { Title(this.props.title) }
             { this.props.children }
+            <Pager {...this.props} />
             { Footer }
           </div>
         </div>

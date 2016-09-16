@@ -15,10 +15,11 @@ class Cat extends Component {
 
   }
 
-  componentDidMount() {
-    let {params} = this.props
+  ajax(nextProps) {
+    let props = nextProps || this.props
+    let {params} = props
     let prop = Object.keys(params)[0]
-    let {query} = this.props.location
+    let {query} = props.location
     this.props.getPosts({
       ...query,
       ['cat' + prop]: params[prop]
@@ -34,15 +35,16 @@ class Cat extends Component {
     })
   }
 
+  componentDidMount() {
+    this.ajax()
+  }
+
   componentWillReceiveProps(nextProps) {
-    if(JSON.stringify(nextProps.params) !== JSON.stringify(this.props.params)) {
-      let {params} = nextProps
-      let prop = Object.keys(params)[0]
-      let {query} = nextProps.location
-      this.props.getPosts({
-        ...query,
-        ['cat' + prop]: params[prop]
-      }, 'set_posts')
+    if(
+      JSON.stringify(nextProps.params) !== JSON.stringify(this.props.params) ||
+      JSON.stringify(nextProps.location.query) !== JSON.stringify(this.props.location.query)
+      ) {
+      this.ajax(nextProps)
     }
   }
 
