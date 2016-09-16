@@ -1,5 +1,5 @@
 
-import { host } from '../common/constants'
+import { host, siteName } from '../common/constants'
 import url from '../common/api'
 import { types } from '../reducers'
 import fetch from '../common/fetch'
@@ -19,7 +19,7 @@ export function setProp(action) {
 
 }
 
-export function getPosts(data, type) {
+export function getPosts(data, type, cb) {
 
   return async dispatch => {
 
@@ -36,11 +36,13 @@ export function getPosts(data, type) {
       ,data: res.total
     })
 
+    if(cb) cb(res)
+    
   }
 
 }
 
-export function getCats(data, type) {
+export function getCats(data, type, cb) {
 
   return async dispatch => {
 
@@ -52,6 +54,8 @@ export function getCats(data, type) {
       type: types[type]
       ,data: type === 'set_cat'?res.result[0]:res.result
     })
+
+    if(cb) cb(res)
 
   }
 

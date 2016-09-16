@@ -3,6 +3,7 @@ import Post from '../components/Post'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../actions'
+import { types } from '../reducers'
 
 class Home extends Component {
 
@@ -17,13 +18,17 @@ class Home extends Component {
     let {query} = this.props.location
     this.props.getPosts({
       ...query
-    }, 'set_posts')
+    }, 'set_posts', () => {
+      this.props.setProp({
+        type: types.set_title
+        ,data: ''
+      })
+    })
   }
 
   render() {
 
     let {posts} = this.props
-    console.log(this.props, 'this.p')
     return (
 
         <div className="posts">

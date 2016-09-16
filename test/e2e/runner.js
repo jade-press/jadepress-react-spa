@@ -3,7 +3,7 @@
 process.env.NODE_ENV = 'development'
 
 const config0 = require('../../build/dev-config'),
-	port = config0.config0,
+	port = config0.testRunnerPort,
 	MongoClient = require('mongodb').MongoClient,
 	pack = require('../../package.json'),
 	path = require('path'),

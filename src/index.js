@@ -5,9 +5,10 @@ import React from 'react'
 import { render } from 'react-dom'
 import createStore from './store/configureStore'
 import { Provider } from 'react-redux'
-import Route from './routes'
+
 import './css/style.styl'
 
+const Route = require('./routes').default
 const store = createStore()
 
 render(

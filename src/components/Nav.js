@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import CatLink from './CatLink'
-import { siteName, host } from '../common/constants'
+import { siteName, host, user } from '../common/constants'
 import { Link, browserHistory } from 'react-router'
 import { types } from '../reducers'
 
@@ -8,23 +8,28 @@ export default class Nav extends Component {
 
 	constructor (props) {
 		super(props)
+		this.state = {
+			title: this.props.location.query.title || ''
+		}
 	}
 
 	onChange(e) {
-		let { setProp } = this.props
-		let {query} = this.props.location
-		setProp({
-			type: types.set_query,
-			data: Object.assign(query, {
-				title: e.target.title
-			})
+		this.setState({
+			title: e.target.value
 		})
 	}
 
+  componentWillReceiveProps(nextProps) {
+    if(JSON.stringify(nextProps.location.query) !== JSON.stringify(this.props.location.query)) {
+      this.setState({
+				title: nextProps.location.query.title || ''
+			})
+    }
+  }
+
 	onSearch(e) {
 		e.preventDefault()
-		let query = this.props.query
-		browserHistory.pushState(`/s?title=${query.title}`)
+		browserHistory.push(`/s?title=${this.state.title}`)
 	}
 
 	render () {
@@ -51,7 +56,7 @@ export default class Nav extends Component {
 						<form action={host + '/s'} onSubmit={this.onSearch.bind(this)}>
 							<div className="form-group">
 								<div className="input-group">
-									<input className="form-control" name="title" type="search" value={query.title} onChange={this.onChange.bind(this)} />
+									<input className="form-control" name="title" type="search" value={this.state.title} onChange={this.onChange.bind(this)} />
 									<span className="input-group-btn">
 										<button className="btn btn-secondary" type="submit">search</button>
 									</span>
@@ -59,7 +64,14 @@ export default class Nav extends Component {
 							</div>
 						</form>
 
-						{(this.props.cats || []).map(CatLink)}
+						{(this.props.cats || []).map((c, i) => CatLink(c, i, false))}
+
+						<hr />
+						{
+							user
+								?<a href={host + '/logout'}>logout</a>
+								:<a href={host + '/login'}>login</a>
+						}
 					</div>
 					
 					<div className="p-y-1 hidden-sm-up" />

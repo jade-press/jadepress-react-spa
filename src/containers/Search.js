@@ -3,6 +3,7 @@ import Post from '../components/Post'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../actions'
+import { types } from '../reducers'
 
 class S extends Component {
 
@@ -17,17 +18,35 @@ class S extends Component {
     let {query} = this.props.location
     this.props.getPosts({
       ...query
-    }, 'set_posts')
+    }, 'set_posts', () => {
+      this.props.setProp({
+        type: types.set_title
+        ,data: 'search "' + query.title + '"'
+      })
+    })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(JSON.stringify(nextProps.location.query) !== JSON.stringify(this.props.location.query)) {
+      let {query} = nextProps.location
+      this.props.getPosts({
+        ...query
+      }, 'set_posts')
+    }
   }
 
   render() {
 
-    let {posts} = this.props
-    
+    let posts = this.props.posts || []
+    let {query} = this.props.location
     return (
 
         <div className="posts">
-          {(posts || []).map((post, index) => Post(post, index, false))}
+          {
+            posts.length
+            ?posts.map((post, index) => Post(post, index, false))
+            :<p>can not find any post with keyword: <b className="text-danger">{query.title}</b></p>
+          }
         </div>
         
     )

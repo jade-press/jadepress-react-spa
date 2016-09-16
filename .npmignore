@@ -1,7 +1,3 @@
 /node_modules/
-/bower_components/
-/src/app.jsx
-/src/index.jsx
-/static/
-/public/
-/*.js
+/test/
+/build/

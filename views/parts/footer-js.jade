@@ -9,8 +9,7 @@ script.
 		,siteName: '#{siteName}'
 		,pageSize: #{pageSize || 10}
 		,maxLink: #{maxLink || 5}
-		,params: !{JSON.stringify(params)}
-		,query: !{JSON.stringify(query)}
+		,user: !{JSON.stringify(user) || false}
 	}
 
 - if(usePublicCdn)

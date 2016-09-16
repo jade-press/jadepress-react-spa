@@ -5,14 +5,16 @@ import Home from './containers/Home'
 import Post from './containers/Post'
 import Cat from './containers/Cat'
 import Search from './containers/Search'
+import { publicRoute } from './common/constants'
+const { cat, post, home } = publicRoute
 
 export default (
   <Router history={browserHistory}>
-    <Route path="/" component={App}>
+    <Route path={home} component={App}>
       <IndexRoute component={Home} />
-      <Route path="/s" component={Search} />
-      <Route path="/cat/:catSlug" component={Cat} />
-      <Route path="/:catSlug/:postSlug" component={Post} />
+      <Route path="s" component={Search} />
+      <Route path={cat} component={Cat} />
+      <Route path={post} component={Post} />
     </Route>
   </Router>
 )

@@ -28,7 +28,7 @@ let init = require('jade-press').init
 
 co(function* () {
   let dd = yield MongoClient.connect(config.setting.dbLink)
-  yield dd.dropDatabase()
+  //yield dd.dropDatabase()
   let res = yield init(config)
   return Promise.resolve(res)
 })

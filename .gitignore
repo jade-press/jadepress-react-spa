@@ -29,5 +29,4 @@ build/Release
 
 # Dependency directory
 /node_modules/
-/bower_components/
 /test/e2e/reports/

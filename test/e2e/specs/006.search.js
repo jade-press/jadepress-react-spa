@@ -1,7 +1,7 @@
 'use strict'
 
-let config = require('../config')
-,port = config.port
+let config = require('../../../build/dev-config')
+,port = config.testRunnerPort
 ,host = 'http://127.0.0.1:' + port
 ,tests = [
 	{

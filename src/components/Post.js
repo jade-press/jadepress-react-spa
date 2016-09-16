@@ -7,7 +7,7 @@ const Post = (post, index, isSingle = false) => {
 
 	const url = createUrl(post, '', publicRoute.post)
 	let title = isSingle
-		?<h1>{post.title}</h1>
+		?null
 		:<h2>
 			<Link to={url}>
 				{post.title}

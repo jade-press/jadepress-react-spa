@@ -18,7 +18,7 @@ module.exports = {
 
   "test_settings": {
     "default": {
-      "selenium_port": 4444,
+      "selenium_port": config0.testPort,
       "selenium_host": "localhost",
       "silent": true
     },

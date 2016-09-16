@@ -5,13 +5,14 @@ import * as actions from '../actions'
 import Nav from '../components/Nav'
 import Title from '../components/Title'
 import Footer from '../components/Footer'
+import { siteName } from '../common/constants'
 
 class App extends Component {
 
   constructor(props) {
 
     super(props)
-
+    this.checkTitle()
   }
 
   checkNavBar() {
@@ -20,15 +21,21 @@ class App extends Component {
     else $('#menus').removeClass('in')
   }
 
+  checkTitle() {
+    let {title} = this.props
+    document.title = title + (title?' - ':'') + siteName
+  }
+
   componentDidMount() {
     this.props.getCats({}, 'set_cats')
     $(window).on('resize', this.checkNavBar)
     this.checkNavBar()
   }
-  
+
   postAction() {
     window.prettyPrint()
     this.checkNavBar()
+    this.checkTitle()
   }
 
   componentDidUpdate() {
@@ -36,7 +43,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props, 'app props')
     return (
       <div id="content" className="container">
         <div className="row">

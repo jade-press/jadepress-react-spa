@@ -86,7 +86,7 @@ extend.publicPostsPromise = function* (body, host) {
 	let pageSize = query.pageSize || setting.pageSize
 	pageSize = parseInt(pageSize, 10) || setting.pageSize
 
-	let sea1 = _.pick(body, ['_id', 'id', 'slug', 'title'])
+	let sea1 = _.pick(body, ['_id', 'id', 'slug', 'title', 'catid', 'cat_id', 'catslug'])
 
 	sea1.page = page
 	sea1.pageSize = pageSize
@@ -123,49 +123,13 @@ extend.publicPosts = function* (next) {
 
 }
 
-extend.post = extend.home = extend.search = function* (next) {
+extend.post = extend.home = extend.cat = extend.search = function* (next) {
 
 	try {
 
 		Object.assign(this.local, {
 			themeRes: buildThemeRes(this.local.host)
-			,createUrl: tools.createUrl
 			,publicRoute: setting.publicRoute
-			,params: this.params
-			,query: this.query
-		})
-		let user = this.session.user
-		this.local.user = user
-		this.render(baseThemeViewPath + 'index', this.local)
-
-	} catch(e) {
-
-		err('failed render page', this.href, e)
-		this.status = 500
-		this.local.error = e
-		this.render(setting.path500, this.local)
-
-	}
-}
-
-extend.cat = function* (next) {
-
-	try {
-
-		let params = this.params
-		let sea = tools.createQueryObj(params, [':_id', ':id', ':slug'])
-		let sea1 = {}
-
-		_.each(sea, function(value, key) {
-			sea1['cat' + key] = value
-		})
-
-		Object.assign(this.local, {
-			themeRes: buildThemeRes(this.local.host)
-			,createUrl: tools.createUrl
-			,publicRoute: setting.publicRoute
-			,params: sea1
-			,query: this.query
 		})
 		let user = this.session.user
 		this.local.user = user

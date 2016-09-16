@@ -4,6 +4,7 @@ import { pageSize } from '../common/constants'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../actions'
+import { types } from '../reducers'
 
 class Po extends Component {
 
@@ -21,7 +22,12 @@ class Po extends Component {
       pageSize,
       page: query.page || 1,
       postSlug
-    }, 'set_post')
+    }, 'set_post', (res) => {
+      this.props.setProp({
+        type: types.set_title
+        ,data: res.result[0].title
+      })
+    })
   }
 
   render() {
