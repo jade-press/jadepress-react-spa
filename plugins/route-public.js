@@ -2,14 +2,11 @@
 
 module.exports = function(ext) {
 
-
-'use strict'
-
 /**
  * catogory
  */
 
-var 
+const 
 local = ext.local
 ,setting = ext.setting
 ,tools = ext.tools
@@ -22,8 +19,8 @@ local = ext.local
 ,buildThemeRes = tools.buildThemeRes
 ,_ = require('lodash')
 
-var extend = {}
-var basicPostFields = {
+let extend = {}
+let basicPostFields = {
 	id: 1
 	,desc: 1
 	,cats: 1
@@ -89,7 +86,7 @@ extend.publicPostsPromise = function* (body, host) {
 	let pageSize = query.pageSize || setting.pageSize
 	pageSize = parseInt(pageSize, 10) || setting.pageSize
 
-	let sea1 = _.pick(body, ['_id', 'id', 'slug', 'title', 'catslug', 'cat_id', 'catid'])
+	let sea1 = _.pick(body, ['_id', 'id', 'slug', 'title'])
 
 	sea1.page = page
 	sea1.pageSize = pageSize
@@ -99,15 +96,6 @@ extend.publicPostsPromise = function* (body, host) {
 		pageSize: pageSize
 		,total: obj?(obj.total || 0):0
 		,result: obj?(obj.posts || [obj]):[]
-	}
-
-	if(sea1.catslug || sea1.cat_id || sea1.catid) {
-		let catBody = {}
-		if(sea1.catslug) catBody.slug = sea1.catslug
-		if(sea1.catid) catBody.id = sea1.catid
-		if(sea1.cat_id) catBody._id = sea1.cat_id
-		let cat = yield extend.publicCatspromise(catBody, host)
-		if(cat.result.length) res.title = cat.result[0].name
 	}
 
 	return Promise.resolve(res)

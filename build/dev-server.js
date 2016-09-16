@@ -3,9 +3,10 @@
 
 process.env.NODE_ENV = 'dev'
 
-let config0 = require('../test/e2e/config')
-,port = config0.port
-,devPort = require('./dev-config').port
+const
+config0 = require('./dev-config')
+,devPort = config0.port
+,port = config0.devServerPort
 ,MongoClient = require('mongodb').MongoClient
 ,pack = require('../package.json')
 ,path = require('path')

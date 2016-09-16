@@ -1,99 +1,58 @@
-import fetch from 'isomorphic-fetch'
-import { host } from '../lib/tools'
 
-/*
-  @param prop, 'posts' or 'cats'
-  @param status, boolean 
-*/
+import { host } from '../common/constants'
+import url from '../common/api'
+import { types } from '../reducers'
+import fetch from '../common/fetch'
 
-export function setStatus(prop, status) {
-  return {
-    type: 'SET_ONLOAD_' + prop.toUpperCase()
-    ,status: status
-  }
+function onload(dispatch, loading) {
+  dispatch({
+    type: types.set_onload
+    ,data: loading
+  })
 }
 
-export function setItems(prop, items) {
-  return {
-    type: 'SET_' + prop.toUpperCase()
-    ,items: items
+export function setProp(action) {
+
+  return dispatch => {
+    dispatch(action)
   }
+
 }
 
-function normalize(json) {
-  if(json.errorMsg || json.errs) {
-    json.err = json.errorMsg || json.errs.join(';')
-  }
-  return json
-}
+export function getPosts(data, type) {
 
-function fill(items) {
-  var item = items[0]
-  if(!item) return items
-  var id = item.id + ''
-  var r = Math.floor(Math.random() * 8 + 6)
-  var res = []
-  for(var i = 0;i < r;i ++) {
-    var it = Object.assign({}, item, {
-      _id: id + i
-    })
-    res.push(it)
-  }
-  return res
-}
+  return async dispatch => {
 
-export function fetchItems(dispatch, prop, body, path) {
-
-  if(prop === 'posts') {
+    //statrt
+    onload(dispatch, true)
+    let res = await fetch.post(url.get_posts, data)
+    onload(dispatch, false)
     dispatch({
-      type: 'SET_QUERY'
-      ,query: body
-      ,path: path
+      type: types[type]
+      ,data: type === 'set_post'?res.result[0]:res.result
     })
     dispatch({
-      type: 'SET_SINGLE'
-      ,single: !!(body._id || body.slug || body.id)
+      type: types.set_total
+      ,data: res.total
     })
+
   }
-
-  dispatch(setStatus(prop, true))
-
-  return fetch(host + '/public-' + prop, {
-    method: 'POST'
-    ,headers: {
-      'Accept': 'application/json'
-      ,'Content-Type': 'application/json'
-    }
-    ,body: JSON.stringify(body)
-  })
-  .then(response => response.json())
-  .then(json => {
-
-    dispatch(setStatus(prop, false))
-    var res = normalize(json)
-    if(res.err) return console.log(res.err)
-    var items = res.result
-    if(prop === 'posts') {
-      dispatch({
-        type: 'SET_TOTAL'
-        ,total: res.total
-      })
-    }
-
-    dispatch(setItems(prop, items))
-
-    if(res.title) {
-      dispatch({
-        type: 'SET_TITLE'
-        ,title: 'category ' + res.title
-      })
-    }
-
-  })
-  .catch(e => {
-    dispatch(setStatus(prop, false))
-    console.log(e.stack || e)
-  })
 
 }
 
+export function getCats(data, type) {
+
+  return async dispatch => {
+
+    //statrt
+    onload(dispatch, true)
+    let res = await fetch.post(url.get_cats, data)
+    onload(dispatch, false)
+    dispatch({
+      type: types[type]
+      ,data: type === 'set_cat'?res.result[0]:res.result
+    })
+
+  }
+
+}

@@ -1,25 +1,20 @@
 
-import React from 'react'
-import { createUrl, host, publicRoute } from '../lib/tools'
+import { Link } from 'react-router'
+import { createUrl, host, publicRoute } from '../common/constants'
 
-const CatLink = (onLinkClick, ctx, sep) =>  {
+const CatLink = (cat, index) =>  {
 
-	return (cat, index) => {
-		const url = createUrl(cat, host, publicRoute.cat)
-		return (
-			<span key={cat._id}>
-				{index&&sep?', ':''}
-				<a
-					href={url}
-					title={cat.desc || cat.name}
-					onClick={
-						onLinkClick.bind(ctx, {
-							cat_id: cat._id
-						}, url.replace(host, ''))
-					}>{cat.name}</a>
-			</span>
-		)
-	}
+	const url = createUrl(cat, '', publicRoute.cat)
+	return (
+		<span key={cat._id}>
+			{index?', ':''}
+			<Link
+				to={url}
+				title={cat.desc || cat.name}
+			>{cat.name}</Link>
+		</span>
+	)
+
 }
 
 export default CatLink

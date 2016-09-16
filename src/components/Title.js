@@ -1,13 +1,11 @@
-import React from 'react'
 
 const Title = title => {
-	if(title) return (
-		<div>	
+	return title
+		?<div>	
 			<h1>{title}</h1>
 			<div className="p-y-2" />
 		</div>
-	)
-	else return ''
+		:null
 }
 
 export default Title

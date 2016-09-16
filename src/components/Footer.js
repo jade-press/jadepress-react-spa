@@ -1,8 +1,5 @@
-import React from 'react'
 
-const Footer = () => (
-
-	<footer>
+export default <footer>
 		<hr />
 		<p>
 			&copy; 2016
@@ -14,7 +11,3 @@ const Footer = () => (
 			<a href="http://jade-press.org" target="_blank">jade-press.org</a>
 		</p>
 	</footer>
-
-)
-
-export default Footer

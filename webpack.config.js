@@ -1,80 +1,110 @@
-var webpack = require('webpack')
-var path = require('path')
+const webpack = require('webpack')
+const OpenBrowserPlugin = require('open-browser-webpack-plugin')
+const configSys = require('./build/dev-config')
+const UnminifiedWebpackPlugin = require('unminified-webpack-plugin')
+const pack = require('./package.json')
+const today = new Date().toISOString().substr(0, 10) 
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const extractTextPlugin = new ExtractTextPlugin('css/[name].styles.css')
 
 let config = {
-	entry: {
-		app: './src/index.js',
-	},
-	output: {
-		filename: 'bundle.js',
-		publicPath: '/js/',
-		path: path.resolve(__dirname, 'public/js/'),
-		libraryTarget: 'var',
-	},
-	externals: {
-	 	'react': 'React'
-	 	,'react-dom': 'ReactDOM'
-	},
-	plugins: [
-		new webpack.HotModuleReplacementPlugin()
-	],
-	devtool: '#eval-source-map',
-	module: {
-		loaders: [
-			{
-				test: /\.js[x]?$/,
-				loaders: ['babel'],
-				include: path.join(__dirname, '/src')
-			}
-			,{
-				test: /\.(html|css)$/,
-				loader: 'raw-loader'
-			}
-		]
-	}
-	,devServer: {
-		hot: true
-		,quiet: false
-		,proxy: {
-			'*': {
-				target: 'http://localhost:9809',
-				secure: false,
-				ws: false,
-				bypass: function(req, res, opt) {
-					if(/\.json$/.test(req.path) || /\.bundle\.js/.test(req.path)) {
-						console.log('bypass', req.path)
-						return req.path
-					}
-				}
-			}
-		}
-	}
+  entry: {
+    app: './src/index.js'
+  },
+  output: {
+    path: __dirname + '/public/', //输出文件目录
+    filename: 'js/[name].min.js', //输出文件名
+    libraryTarget: 'var',
+    publicPath: '/'
+  },
+  watch: true,
+  externals: {
+    'react': 'React',
+    'react-dom': 'ReactDOM'
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      },
+      {
+        test: /\.styl$/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css!stylus')
+      },
+    ]
+  },
+  devtool: '#eval-source-map',
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new OpenBrowserPlugin({ url: 'http://localhost:' + configSys.port }),
+    extractTextPlugin
+  ],
+  devServer: {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+    },
+    historyApiFallback: true,
+    hot: true,
+    inline: true,
+    progress: true,
+    watch: true,
+    port: configSys.port,
+    proxy: {
+      '*': {
+        target: 'http://localhost:' + configSys.devServerPort,
+        secure: false,
+        ws: false,
+        bypass: function (req, res, opt) {
+          if (
+            /(\.json)$/.test(req.path) ||
+            /\.bundle\.js/.test(req.path)
+          ) {
+            console.log('bypass', req.path)
+            return req.path
+          }
+        }
+      }
+    }
+  },
 }
 
-if(process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
 
-	config.plugins = [
-		new webpack.optimize.DedupePlugin(),
-		new webpack.optimize.OccurenceOrderPlugin(),
-		new webpack.optimize.MinChunkSizePlugin({
-			minChunkSize: 51200, // ~50kb
-		}),
-		new webpack.optimize.UglifyJsPlugin({
-			mangle:   true,
-			compress: {
-					warnings: false, // Suppress uglification warnings
-			}
-		})
-    ,new webpack.DefinePlugin({
+  config.plugins = [
+    new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': "'production'"
       }
-    })
-	]
+    }),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      mangle: true,
+      compress: {
+        warnings: false, // Suppress uglification warnings
+      }
+    }),
+    new UnminifiedWebpackPlugin(),
+    extractTextPlugin,
+    new webpack.BannerPlugin(
+      `
+/**
+ * ${pack.name}
+ * @version v${pack.version} - ${today}
+ * @link ${pack.homepage}
+ * @author ${pack.author.name} (${pack.author.email})
+ * @license MIT License, http://www.opensource.org/licenses/MIT
+ */
+      `
+      , { raw: true })
+  ]
 
-	delete config.devtool
-	delete config.devServer
+  config.devtool = 'source-map'
 
 }
+
 
 module.exports = config
