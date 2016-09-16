@@ -8,7 +8,7 @@ let config = require('../../../build/dev-config')
 		title: 'search - no result'
 		,waitForElementVisible: '#wrapper'
 		,elementPresent: '#nav'
-		,containsText: ['h1', 'search']
+		,containsText: ['h1', 'search "dddd"']
 		,elementCount: ['h1', 1]
 		,url: 'http://127.0.0.1:' + port + '/s?title=dddd'
 	}
@@ -16,7 +16,7 @@ let config = require('../../../build/dev-config')
 		title: 'search - has result'
 		,waitForElementVisible: '#wrapper'
 		,elementPresent: '#nav'
-		,containsText: ['h1', 'search hello']
+		,containsText: ['h1', 'search "hello"']
 		,elementCount: ['h2', 1]
 		,url: 'http://127.0.0.1:' + port + '/s?title=hello'
 	}

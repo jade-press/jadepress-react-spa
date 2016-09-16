@@ -7,7 +7,7 @@ let config = require('../../../build/dev-config')
 	title: 'category'
 	,waitForElementVisible: '#wrapper'
 	,elementPresent: '#nav'
-	,containsText: ['h1', 'category default']
+	,containsText: ['h1', 'category:default']
 	,elementCount: ['h2', 1]
 	,url: 'http://127.0.0.1:' + port + '/cat/default'
 }
