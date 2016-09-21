@@ -6,6 +6,7 @@ import * as actions from '../actions'
 import { browserHistory } from 'react-router'
 import { createUrl, host, publicRoute } from '../common/constants'
 import { types } from '../reducers'
+import Pager from '../components/Pager'
 
 class Cat extends Component {
 
@@ -58,12 +59,15 @@ class Cat extends Component {
     let posts = this.props.posts || []
     return (
 
-        <div className="posts">
-          {
-            posts.length
-            ?posts.map((post, index) => Post(post, index, false))
-            :<p>no posts in this category</p>
-          }
+        <div>
+          <div className="posts">
+            {
+              posts.length
+              ?posts.map((post, index) => Post(post, index, false))
+              :<p>no posts in this category</p>
+            }
+          </div>
+          <Pager {...this.props} />
         </div>
         
     )

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../actions'
 import { types } from '../reducers'
+import Pager from '../components/Pager'
 
 class Home extends Component {
 
@@ -46,8 +47,11 @@ class Home extends Component {
     let {posts} = this.props
     return (
 
-        <div className="posts">
-          {(posts || []).map((post, index) => Post(post, index, false))}
+        <div>
+          <div className="posts">
+            {(posts || []).map((post, index) => Post(post, index, false))}
+          </div>
+          <Pager {...this.props} />
         </div>
         
     )

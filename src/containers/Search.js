@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../actions'
 import { types } from '../reducers'
+import Pager from '../components/Pager'
 
 class S extends Component {
 
@@ -48,6 +49,7 @@ class S extends Component {
             ?posts.map((post, index) => Post(post, index, false))
             :<p>can not find any post with keyword: <b className="text-danger">{query.title}</b></p>
           }
+          <Pager {...this.props} />
         </div>
         
     )

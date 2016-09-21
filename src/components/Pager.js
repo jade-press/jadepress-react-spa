@@ -52,7 +52,7 @@ export default class Pager extends Component {
 	render () {
 
 		let {query} = this.props.location
-    let {total} = this.props
+    let {total, post} = this.props
     let state = {
       page: parseInt(query.page || 1, 10),
       maxLink,

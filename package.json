@@ -1,12 +1,12 @@
 {
   "name": "jadepress-react-spa",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "jade press react spa theme",
   "main": "index.js",
   "scripts": {
     "test": "npm run e2e",
     "e2e": "node test/e2e/runner.js",
-    "start": "npm run dev:server && npm run dev:client && npm run build",
+    "start": "run-p dev:server dev:client build",
     "build": "rm -rf public/ && NODE_ENV=production ./node_modules/.bin/webpack -p --progress",
     "dev:server": "node build/dev-server",
     "dev:server-debug": "node --debug build/dev-server",
@@ -50,6 +50,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "mocha": "3.0.2",
     "nightwatch": "0.9.8",
+    "npm-run-all": "^3.1.0",
     "open-browser-webpack-plugin": "0.0.2",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
