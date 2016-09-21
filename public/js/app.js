@@ -69,7 +69,7 @@
 
 	'use strict';
 	
-	var _constants = __webpack_require__(6);
+	var _constants = __webpack_require__(7);
 	
 	var tools = _interopRequireWildcard(_constants);
 	
@@ -234,6 +234,13 @@
 
 /***/ },
 /* 6 */
+/***/ function(module, exports) {
+
+	var core = module.exports = {version: '2.4.0'};
+	if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
+
+/***/ },
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -251,13 +258,6 @@
 			createUrl: _createUrl.createUrl
 		});
 	}
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-	var core = module.exports = {version: '2.4.0'};
-	if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
 
 /***/ },
 /* 8 */
@@ -598,7 +598,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var global    = __webpack_require__(5)
-	  , core      = __webpack_require__(7)
+	  , core      = __webpack_require__(6)
 	  , ctx       = __webpack_require__(32)
 	  , hide      = __webpack_require__(20)
 	  , PROTOTYPE = 'prototype';
@@ -1298,7 +1298,7 @@
 	exports.getPosts = getPosts;
 	exports.getCats = getCats;
 	
-	var _constants = __webpack_require__(6);
+	var _constants = __webpack_require__(7);
 	
 	var _api = __webpack_require__(103);
 	
@@ -1491,7 +1491,7 @@
 	
 	var _CatLink2 = _interopRequireDefault(_CatLink);
 	
-	var _constants = __webpack_require__(6);
+	var _constants = __webpack_require__(7);
 	
 	var _reactRouter = __webpack_require__(29);
 	
@@ -2081,7 +2081,7 @@
 	
 	var _reactRouter = __webpack_require__(29);
 	
-	var _constants = __webpack_require__(6);
+	var _constants = __webpack_require__(7);
 	
 	var _react = __webpack_require__(1);
 	
@@ -2308,7 +2308,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var global         = __webpack_require__(5)
-	  , core           = __webpack_require__(7)
+	  , core           = __webpack_require__(6)
 	  , LIBRARY        = __webpack_require__(38)
 	  , wksExt         = __webpack_require__(59)
 	  , defineProperty = __webpack_require__(13).f;
@@ -3050,7 +3050,7 @@
 	
 	var _reactRouter = __webpack_require__(29);
 	
-	var _constants = __webpack_require__(6);
+	var _constants = __webpack_require__(7);
 	
 	var CatLink = function CatLink(cat, index, sep) {
 	
@@ -5336,7 +5336,7 @@
 	
 	var _CatLink2 = _interopRequireDefault(_CatLink);
 	
-	var _constants = __webpack_require__(6);
+	var _constants = __webpack_require__(7);
 	
 	var _reactRouter = __webpack_require__(29);
 	
@@ -5538,7 +5538,7 @@
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
 	
-	var _constants = __webpack_require__(6);
+	var _constants = __webpack_require__(7);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -5676,7 +5676,7 @@
 	
 	var _reactRouter = __webpack_require__(29);
 	
-	var _constants = __webpack_require__(6);
+	var _constants = __webpack_require__(7);
 	
 	var _reducers = __webpack_require__(15);
 	
@@ -5924,8 +5924,6 @@
 	
 	var _Post2 = _interopRequireDefault(_Post);
 	
-	var _constants = __webpack_require__(6);
-	
 	var _reactRedux = __webpack_require__(27);
 	
 	var _redux = __webpack_require__(24);
@@ -5949,24 +5947,40 @@
 	  }
 	
 	  (0, _createClass3.default)(Po, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
+	    key: 'ajax',
+	    value: function ajax() {
 	      var _this2 = this;
 	
-	      var params = this.props.params;
+	      var nextProps = arguments.length <= 0 || arguments[0] === undefined ? this.props : arguments[0];
+	      var params = nextProps.params;
+	
+	      var pps = Object.keys(params);
 	      var postSlug = params.postSlug;
 	      var query = this.props.location.query;
 	
-	      this.props.getPosts({
-	        pageSize: _constants.pageSize,
-	        page: query.page || 1,
-	        postSlug: postSlug
-	      }, 'set_post', function (res) {
+	      var req = pps.reduce(function (prev, prop) {
+	        if (prop.indexOf('cat') > -1) return prev;
+	        prev[prop] = params[prop];
+	        return prev;
+	      }, {});
+	      this.props.getPosts(req, 'set_post', function (res) {
 	        _this2.props.setProp({
 	          type: _reducers.types.set_title,
 	          data: res.result[0].title
 	        });
 	      });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.ajax();
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      if (JSON.stringify(nextProps.params) !== JSON.stringify(this.props.params)) {
+	        this.ajax(nextProps);
+	      }
 	    }
 	  }, {
 	    key: 'render',
@@ -6129,7 +6143,7 @@
 	  value: true
 	});
 	
-	var _constants = __webpack_require__(6);
+	var _constants = __webpack_require__(7);
 	
 	exports.default = {
 	  pageSize: _constants.pageSize,
@@ -6181,7 +6195,7 @@
 	
 	var _Search2 = _interopRequireDefault(_Search);
 	
-	var _constants = __webpack_require__(6);
+	var _constants = __webpack_require__(7);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -6360,14 +6374,14 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(160);
-	module.exports = __webpack_require__(7).Object.assign;
+	module.exports = __webpack_require__(6).Object.assign;
 
 /***/ },
 /* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(161);
-	var $Object = __webpack_require__(7).Object;
+	var $Object = __webpack_require__(6).Object;
 	module.exports = function create(P, D){
 	  return $Object.create(P, D);
 	};
@@ -6377,7 +6391,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(162);
-	var $Object = __webpack_require__(7).Object;
+	var $Object = __webpack_require__(6).Object;
 	module.exports = function defineProperty(it, key, desc){
 	  return $Object.defineProperty(it, key, desc);
 	};
@@ -6387,7 +6401,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(163);
-	module.exports = __webpack_require__(7).Object.setPrototypeOf;
+	module.exports = __webpack_require__(6).Object.setPrototypeOf;
 
 /***/ },
 /* 130 */
@@ -6397,7 +6411,7 @@
 	__webpack_require__(83);
 	__webpack_require__(84);
 	__webpack_require__(164);
-	module.exports = __webpack_require__(7).Promise;
+	module.exports = __webpack_require__(6).Promise;
 
 /***/ },
 /* 131 */
@@ -6407,7 +6421,7 @@
 	__webpack_require__(82);
 	__webpack_require__(166);
 	__webpack_require__(167);
-	module.exports = __webpack_require__(7).Symbol;
+	module.exports = __webpack_require__(6).Symbol;
 
 /***/ },
 /* 132 */
@@ -6915,7 +6929,7 @@
 
 	'use strict';
 	var global      = __webpack_require__(5)
-	  , core        = __webpack_require__(7)
+	  , core        = __webpack_require__(6)
 	  , dP          = __webpack_require__(13)
 	  , DESCRIPTORS = __webpack_require__(12)
 	  , SPECIES     = __webpack_require__(4)('species');
@@ -6982,7 +6996,7 @@
 	var classof   = __webpack_require__(70)
 	  , ITERATOR  = __webpack_require__(4)('iterator')
 	  , Iterators = __webpack_require__(34);
-	module.exports = __webpack_require__(7).getIteratorMethod = function(it){
+	module.exports = __webpack_require__(6).getIteratorMethod = function(it){
 	  if(it != undefined)return it[ITERATOR]
 	    || it['@@iterator']
 	    || Iterators[classof(it)];
@@ -7296,7 +7310,7 @@
 	$export($export.G + $export.W + $export.F * !USE_NATIVE, {Promise: $Promise});
 	__webpack_require__(41)($Promise, PROMISE);
 	__webpack_require__(154)(PROMISE);
-	Wrapper = __webpack_require__(7)[PROMISE];
+	Wrapper = __webpack_require__(6)[PROMISE];
 	
 	// statics
 	$export($export.S + $export.F * !USE_NATIVE, PROMISE, {

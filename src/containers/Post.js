@@ -1,6 +1,5 @@
 import { Component } from 'react'
 import Post from '../components/Post'
-import { pageSize } from '../common/constants'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../actions'
@@ -14,20 +13,34 @@ class Po extends Component {
 
   }
 
-  componentDidMount() {
-    let {params} = this.props
+  ajax(nextProps = this.props) {
+    let {params} = nextProps
+    let pps = Object.keys(params)
     let {postSlug} = params
     let {query} = this.props.location
-    this.props.getPosts({
-      pageSize,
-      page: query.page || 1,
-      postSlug
-    }, 'set_post', (res) => {
+    let req = pps.reduce((prev, prop) => {
+      if(prop.indexOf('cat') > -1) return prev
+      prev[prop] = params[prop]
+      return prev
+    }, {})
+    this.props.getPosts(req, 'set_post', (res) => {
       this.props.setProp({
         type: types.set_title
         ,data: res.result[0].title
       })
     })
+  }
+
+  componentDidMount() {
+    this.ajax()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(
+      JSON.stringify(nextProps.params) !== JSON.stringify(this.props.params)
+      ) {
+      this.ajax(nextProps)
+    }
   }
 
   render() {
