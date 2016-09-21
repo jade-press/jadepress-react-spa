@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "0.10.3"
+    "url": "https://github.com/jade-press/jadepress-react-spa.git"
   },
   "keywords": [
     "jadepress",
