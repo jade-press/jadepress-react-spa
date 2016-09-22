@@ -1,0 +1,13 @@
+{
+  "restartable": "rs",
+  "verbose": true,
+  "watch": [
+    "build/",
+    "plugins/",
+    "views/"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js json"
+}

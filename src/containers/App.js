@@ -33,7 +33,7 @@ class App extends Component {
   }
 
   postAction() {
-    window.prettyPrint()
+    if(typeof window !== 'undefined') window.prettyPrint()
     this.checkNavBar()
     this.checkTitle()
   }

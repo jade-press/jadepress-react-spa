@@ -5579,7 +5579,7 @@
 	  }, {
 	    key: 'postAction',
 	    value: function postAction() {
-	      window.prettyPrint();
+	      if (typeof window !== 'undefined') window.prettyPrint();
 	      this.checkNavBar();
 	      this.checkTitle();
 	    }
@@ -5730,7 +5730,7 @@
 	  }, {
 	    key: 'componentDidUpdate',
 	    value: function componentDidUpdate() {
-	      window.prettyPrint();
+	      if (typeof window !== 'undefined') window.prettyPrint();
 	    }
 	  }, {
 	    key: 'render',
@@ -5860,7 +5860,7 @@
 	  }, {
 	    key: 'componentDidUpdate',
 	    value: function componentDidUpdate() {
-	      window.prettyPrint();
+	      if (typeof window !== 'undefined') window.prettyPrint();
 	    }
 	  }, {
 	    key: 'render',

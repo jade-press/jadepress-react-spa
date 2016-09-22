@@ -50,7 +50,7 @@ class Cat extends Component {
   }
 
   componentDidUpdate() {
-    window.prettyPrint()
+    if(typeof window !== 'undefined') window.prettyPrint()
   }
 
   render() {

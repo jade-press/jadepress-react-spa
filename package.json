@@ -7,9 +7,10 @@
     "test": "npm run e2e",
     "e2e": "node test/e2e/runner.js",
     "start": "run-p dev:server dev:client build",
+    "build:server": "NODE_ENV=production ./node_modules/.bin/webpack --config build/webpack.config.server -p --progress",
     "build": "rm -rf public/ && NODE_ENV=production ./node_modules/.bin/webpack -p --progress",
-    "dev:server": "node build/dev-server",
-    "dev:server-debug": "node --debug build/dev-server",
+    "dev:server": "./node_modules/.bin/nodemon build/dev-server --config build/nodemon.json",
+    "dev:server-debug": "./node_modules/.bin/nodemon --debug build/dev-server --config build/nodemon.json",
     "dev:client": "./node_modules/.bin/webpack-dev-server --progress --colors --inline --content-base dist/"
   },
   "repository": {
@@ -50,6 +51,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "mocha": "3.0.2",
     "nightwatch": "0.9.8",
+    "nodemon": "^1.10.2",
     "npm-run-all": "^3.1.0",
     "open-browser-webpack-plugin": "0.0.2",
     "react": "^15.3.1",
