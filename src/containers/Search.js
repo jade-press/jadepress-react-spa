@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React from 'react'
 import Post from '../components/Post'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -6,7 +6,7 @@ import * as actions from '../actions'
 import { types } from '../reducers'
 import Pager from '../components/Pager'
 
-class S extends Component {
+class S extends React.Component {
 
   constructor(props) {
 

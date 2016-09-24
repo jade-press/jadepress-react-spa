@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/jade-press/jadepress-react-spa.svg?branch=master)](https://travis-ci.org/jade-press/jadepress-react-spa)
 
-[jade-press](http://jade-press.org) react single page theme
+[jade-press](http://jade-press.org) react single page theme with server render.
 
 ## use
 ```javascript

@@ -1,4 +1,4 @@
-
+import React from 'react'
 import catLink from './CatLink'
 import { createUrl, host, publicRoute } from '../common/constants'
 import { Link } from 'react-router'

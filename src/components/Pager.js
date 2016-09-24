@@ -1,9 +1,9 @@
+import React from 'react'
 import { Link } from 'react-router'
 import { createUrl, host, publicRoute, maxLink, pageSize } from '../common/constants'
-import { Component } from 'react'
 import RPager from 'react-pagenav'
 
-export default class Pager extends Component {
+export default class Pager extends React.Component {
 
 	constructor (props) {
 		super(props)

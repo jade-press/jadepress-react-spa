@@ -1,4 +1,4 @@
-
+import React from 'react'
 import { Link } from 'react-router'
 import { createUrl, host, publicRoute } from '../common/constants'
 

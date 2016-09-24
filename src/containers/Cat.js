@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React from 'react'
 import Post from '../components/Post'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -8,7 +8,7 @@ import { createUrl, host, publicRoute } from '../common/constants'
 import { types } from '../reducers'
 import Pager from '../components/Pager'
 
-class Cat extends Component {
+class Cat extends React.Component {
 
   constructor(props) {
 

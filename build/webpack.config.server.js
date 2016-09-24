@@ -11,6 +11,7 @@ module.exports = exports.default = {
     filename: '[name].min.js', //输出文件名
     libraryTarget: 'commonjs2'
   },
+  target: 'node',
   watch: true,
   externals: {
     react: {

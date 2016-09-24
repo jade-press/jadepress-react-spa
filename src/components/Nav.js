@@ -1,10 +1,10 @@
-import { Component } from 'react'
+import React from 'react'
 import CatLink from './CatLink'
 import { siteName, host, user } from '../common/constants'
 import { Link, browserHistory } from 'react-router'
 import { types } from '../reducers'
 
-export default class Nav extends Component {
+export default class Nav extends React.Component {
 
 	constructor (props) {
 		super(props)

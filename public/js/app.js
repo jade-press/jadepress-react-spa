@@ -1340,7 +1340,7 @@
 	              //statrt
 	              onload(dispatch, true);
 	              _context.next = 3;
-	              return _fetch2.default.post(_api2.default.get_posts, data);
+	              return _fetch2.default.get(_api2.default.get_posts, data);
 	
 	            case 3:
 	              res = _context.sent;
@@ -1385,7 +1385,7 @@
 	              //statrt
 	              onload(dispatch, true);
 	              _context2.next = 3;
-	              return _fetch2.default.post(_api2.default.get_cats, data);
+	              return _fetch2.default.get(_api2.default.get_cats, data);
 	
 	            case 3:
 	              res = _context2.sent;
@@ -1487,6 +1487,10 @@
 		value: true
 	});
 	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
 	var _CatLink = __webpack_require__(67);
 	
 	var _CatLink2 = _interopRequireDefault(_CatLink);
@@ -1502,32 +1506,32 @@
 	
 	
 		var url = (0, _constants.createUrl)(post, '', _constants.publicRoute.post);
-		var title = isSingle ? null : React.createElement(
+		var title = isSingle ? null : _react2.default.createElement(
 			'h2',
 			null,
-			React.createElement(
+			_react2.default.createElement(
 				_reactRouter.Link,
 				{ to: url },
 				post.title
 			)
 		);
 	
-		return React.createElement(
+		return _react2.default.createElement(
 			'div',
 			{ className: 'post p-y-2', key: post._id },
 			title,
-			React.createElement('hr', null),
-			React.createElement(
+			_react2.default.createElement('hr', null),
+			_react2.default.createElement(
 				'p',
 				{ className: 'time' },
 				'by ',
-				React.createElement(
+				_react2.default.createElement(
 					'span',
 					{ className: 'text-muted' },
 					post.createBy.name
 				),
 				', at ',
-				React.createElement(
+				_react2.default.createElement(
 					'span',
 					{ className: 'text-muted' },
 					post.createTime
@@ -1535,8 +1539,8 @@
 				', in ',
 				post.cats.map(_CatLink2.default)
 			),
-			React.createElement('div', { className: 'p-y-1' }),
-			React.createElement('div', { className: 'post-content', dangerouslySetInnerHTML: { __html: post.html } })
+			_react2.default.createElement('div', { className: 'p-y-1' }),
+			_react2.default.createElement('div', { className: 'post-content', dangerouslySetInnerHTML: { __html: post.html } })
 		);
 	};
 	
@@ -2079,11 +2083,13 @@
 	
 	var _inherits3 = _interopRequireDefault(_inherits2);
 	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
 	var _reactRouter = __webpack_require__(29);
 	
 	var _constants = __webpack_require__(7);
-	
-	var _react = __webpack_require__(1);
 	
 	var _reactPagenav = __webpack_require__(184);
 	
@@ -2091,8 +2097,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Pager = function (_Component) {
-	  (0, _inherits3.default)(Pager, _Component);
+	var Pager = function (_React$Component) {
+	  (0, _inherits3.default)(Pager, _React$Component);
 	
 	  function Pager(props) {
 	    (0, _classCallCheck3.default)(this, Pager);
@@ -2109,9 +2115,9 @@
 	        var query = _props$location.query;
 	        var pathname = _props$location.pathname;
 	
-	        var span = unit.isPager ? React.createElement('span', { 'aria-hidden': true, dangerouslySetInnerHTML: { __html: unit.html } }) : React.createElement('span', { dangerouslySetInnerHTML: { __html: unit.html } });
+	        var span = unit.isPager ? _react2.default.createElement('span', { 'aria-hidden': true, dangerouslySetInnerHTML: { __html: unit.html } }) : _react2.default.createElement('span', { dangerouslySetInnerHTML: { __html: unit.html } });
 	
-	        var sr = unit.isPager ? React.createElement('span', { className: 'sr-only', dangerouslySetInnerHTML: { __html: unit.srHtml } }) : null;
+	        var sr = unit.isPager ? _react2.default.createElement('span', { className: 'sr-only', dangerouslySetInnerHTML: { __html: unit.srHtml } }) : null;
 	
 	        var url = {
 	          pathname: pathname,
@@ -2120,10 +2126,10 @@
 	          })
 	        };
 	
-	        return React.createElement(
+	        return _react2.default.createElement(
 	          'li',
 	          { key: index, className: 'page-item ' + unit.class },
-	          React.createElement(
+	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { className: 'page-link', to: url, 'aria-label': unit.ariaLabel },
 	            span,
@@ -2153,11 +2159,11 @@
 	        total: total,
 	        unitRender: this.unitRender.bind(this)()
 	      };
-	      return total > _constants.pageSize ? React.createElement(_reactPagenav2.default, state) : null;
+	      return total > _constants.pageSize ? _react2.default.createElement(_reactPagenav2.default, state) : null;
 	    }
 	  }]);
 	  return Pager;
-	}(_react.Component);
+	}(_react2.default.Component);
 	
 	exports.default = Pager;
 
@@ -3048,18 +3054,24 @@
 		value: true
 	});
 	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
 	var _reactRouter = __webpack_require__(29);
 	
 	var _constants = __webpack_require__(7);
 	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
 	var CatLink = function CatLink(cat, index, sep) {
 	
 		var url = (0, _constants.createUrl)(cat, '', _constants.publicRoute.cat);
-		return React.createElement(
+		return _react2.default.createElement(
 			'span',
 			{ key: cat._id },
 			index && sep ? ', ' : '',
-			React.createElement(
+			_react2.default.createElement(
 				_reactRouter.Link,
 				{
 					to: url,
@@ -5272,34 +5284,41 @@
 
 /***/ },
 /* 106 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.default = React.createElement(
-		"footer",
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = _react2.default.createElement(
+		'footer',
 		null,
-		React.createElement("hr", null),
-		React.createElement(
-			"p",
+		_react2.default.createElement('hr', null),
+		_react2.default.createElement(
+			'p',
 			null,
-			"© 2016",
+			'© 2016',
 			' ',
-			React.createElement(
-				"a",
-				{ href: "https://github.com/jade-press/jadepress-react-spa", target: "_blank" },
-				"jadepress-react-spa"
+			_react2.default.createElement(
+				'a',
+				{ href: 'https://github.com/jade-press/jadepress-react-spa', target: '_blank' },
+				'jadepress-react-spa'
 			),
 			' ',
-			"powered by",
+			'powered by',
 			' ',
-			React.createElement(
-				"a",
-				{ href: "http://jade-press.org", target: "_blank" },
-				"jade-press.org"
+			_react2.default.createElement(
+				'a',
+				{ href: 'http://jade-press.org', target: '_blank' },
+				'jade-press.org'
 			)
 		)
 	);
@@ -5332,6 +5351,8 @@
 	
 	var _react = __webpack_require__(1);
 	
+	var _react2 = _interopRequireDefault(_react);
+	
 	var _CatLink = __webpack_require__(67);
 	
 	var _CatLink2 = _interopRequireDefault(_CatLink);
@@ -5344,8 +5365,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Nav = function (_Component) {
-		(0, _inherits3.default)(Nav, _Component);
+	var Nav = function (_React$Component) {
+		(0, _inherits3.default)(Nav, _React$Component);
 	
 		function Nav(props) {
 			(0, _classCallCheck3.default)(this, Nav);
@@ -5386,54 +5407,54 @@
 				var query = this.props.location.query;
 	
 	
-				return React.createElement(
+				return _react2.default.createElement(
 					'div',
 					{ id: 'nav', className: 'col-sm-4 col-md-4 col-lg-3' },
-					React.createElement(
+					_react2.default.createElement(
 						'div',
 						{ className: 'hidden-sm-up clearfix p-y-1' },
-						React.createElement(
+						_react2.default.createElement(
 							_reactRouter.Link,
 							{ to: '/' },
 							_constants.siteName
 						),
-						React.createElement(
+						_react2.default.createElement(
 							'button',
 							{ className: 'navbar-toggler pull-xs-right', type: 'button', 'data-toggle': 'collapse', 'data-target': '#menus' },
 							'☰'
 						)
 					),
-					React.createElement(
+					_react2.default.createElement(
 						'nav',
 						{ id: 'menus', className: 'collapse' },
-						React.createElement('div', { className: 'p-y-1' }),
-						React.createElement(
+						_react2.default.createElement('div', { className: 'p-y-1' }),
+						_react2.default.createElement(
 							'div',
 							{ className: 'lists text-sm-right' },
-							React.createElement(
+							_react2.default.createElement(
 								'div',
 								{ className: 'hidden-sm-down' },
-								React.createElement(
+								_react2.default.createElement(
 									_reactRouter.Link,
 									{ to: '/', className: 'font-weight-bold form-control-lg' },
 									_constants.siteName
 								),
-								React.createElement('hr', null)
+								_react2.default.createElement('hr', null)
 							),
-							React.createElement(
+							_react2.default.createElement(
 								'form',
 								{ action: _constants.host + '/s', onSubmit: this.onSearch.bind(this) },
-								React.createElement(
+								_react2.default.createElement(
 									'div',
 									{ className: 'form-group' },
-									React.createElement(
+									_react2.default.createElement(
 										'div',
 										{ className: 'input-group' },
-										React.createElement('input', { className: 'form-control', name: 'title', type: 'search', value: this.state.title, onChange: this.onChange.bind(this) }),
-										React.createElement(
+										_react2.default.createElement('input', { className: 'form-control', name: 'title', type: 'search', value: this.state.title, onChange: this.onChange.bind(this) }),
+										_react2.default.createElement(
 											'span',
 											{ className: 'input-group-btn' },
-											React.createElement(
+											_react2.default.createElement(
 												'button',
 												{ className: 'btn btn-secondary', type: 'submit' },
 												'search'
@@ -5445,43 +5466,49 @@
 							(this.props.cats || []).map(function (c, i) {
 								return (0, _CatLink2.default)(c, i, false);
 							}),
-							React.createElement('hr', null),
-							_constants.user ? React.createElement(
+							_react2.default.createElement('hr', null),
+							_constants.user ? _react2.default.createElement(
 								'a',
 								{ href: _constants.host + '/logout' },
 								'logout'
-							) : React.createElement(
+							) : _react2.default.createElement(
 								'a',
 								{ href: _constants.host + '/login' },
 								'login'
 							)
 						),
-						React.createElement('div', { className: 'p-y-1 hidden-sm-up' })
+						_react2.default.createElement('div', { className: 'p-y-1 hidden-sm-up' })
 					)
 				);
 			}
 		}]);
 		return Nav;
-	}(_react.Component);
+	}(_react2.default.Component);
 	
 	exports.default = Nav;
 
 /***/ },
 /* 108 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
 	var Title = function Title(title) {
-		return title ? React.createElement(
-			"div",
+		return title ? _react2.default.createElement(
+			'div',
 			null,
-			React.createElement(
-				"h1",
+			_react2.default.createElement(
+				'h1',
 				null,
 				title
 			)
@@ -5518,6 +5545,8 @@
 	
 	var _react = __webpack_require__(1);
 	
+	var _react2 = _interopRequireDefault(_react);
+	
 	var _reactRedux = __webpack_require__(27);
 	
 	var _redux = __webpack_require__(24);
@@ -5544,8 +5573,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var App = function (_Component) {
-	  (0, _inherits3.default)(App, _Component);
+	var App = function (_React$Component) {
+	  (0, _inherits3.default)(App, _React$Component);
 	
 	  function App(props) {
 	    (0, _classCallCheck3.default)(this, App);
@@ -5567,7 +5596,7 @@
 	    value: function checkTitle() {
 	      var title = this.props.title;
 	
-	      document.title = title + (title ? ' - ' : '') + _constants.siteName;
+	      if (typeof document !== 'undefined') document.title = title + (title ? ' - ' : '') + _constants.siteName;
 	    }
 	  }, {
 	    key: 'componentDidMount',
@@ -5591,17 +5620,17 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return React.createElement(
+	      return _react2.default.createElement(
 	        'div',
 	        { id: 'content', className: 'container' },
-	        React.createElement(
+	        _react2.default.createElement(
 	          'div',
 	          { className: 'row' },
-	          React.createElement(_Nav2.default, this.props),
-	          React.createElement(
+	          _react2.default.createElement(_Nav2.default, this.props),
+	          _react2.default.createElement(
 	            'div',
 	            { id: 'main', className: 'col-sm-8 col-md-8 col-lg-9 p-y-2 p-x-3' },
-	            this.props.onload || this.props.onloadCats || this.props.onloadPosts ? React.createElement(
+	            this.props.onload || this.props.onloadCats || this.props.onloadPosts ? _react2.default.createElement(
 	              'div',
 	              { className: 'loading' },
 	              'loading...'
@@ -5615,7 +5644,7 @@
 	    }
 	  }]);
 	  return App;
-	}(_react.Component);
+	}(_react2.default.Component);
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  return state;
@@ -5662,6 +5691,8 @@
 	
 	var _react = __webpack_require__(1);
 	
+	var _react2 = _interopRequireDefault(_react);
+	
 	var _Post = __webpack_require__(36);
 	
 	var _Post2 = _interopRequireDefault(_Post);
@@ -5688,8 +5719,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Cat = function (_Component) {
-	  (0, _inherits3.default)(Cat, _Component);
+	var Cat = function (_React$Component) {
+	  (0, _inherits3.default)(Cat, _React$Component);
 	
 	  function Cat(props) {
 	    (0, _classCallCheck3.default)(this, Cat);
@@ -5738,26 +5769,26 @@
 	
 	      var cat = this.props.cat || {};
 	      var posts = this.props.posts || [];
-	      return React.createElement(
+	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        React.createElement(
+	        _react2.default.createElement(
 	          'div',
 	          { className: 'posts' },
 	          posts.length ? posts.map(function (post, index) {
 	            return (0, _Post2.default)(post, index, false);
-	          }) : React.createElement(
+	          }) : _react2.default.createElement(
 	            'p',
 	            null,
 	            'no posts in this category'
 	          )
 	        ),
-	        React.createElement(_Pager2.default, this.props)
+	        _react2.default.createElement(_Pager2.default, this.props)
 	      );
 	    }
 	  }]);
 	  return Cat;
-	}(_react.Component);
+	}(_react2.default.Component);
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  return state;
@@ -5799,6 +5830,8 @@
 	
 	var _react = __webpack_require__(1);
 	
+	var _react2 = _interopRequireDefault(_react);
+	
 	var _Post = __webpack_require__(36);
 	
 	var _Post2 = _interopRequireDefault(_Post);
@@ -5821,8 +5854,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Home = function (_Component) {
-	  (0, _inherits3.default)(Home, _Component);
+	var Home = function (_React$Component) {
+	  (0, _inherits3.default)(Home, _React$Component);
 	
 	  function Home(props) {
 	    (0, _classCallCheck3.default)(this, Home);
@@ -5867,22 +5900,22 @@
 	    value: function render() {
 	      var posts = this.props.posts;
 	
-	      return React.createElement(
+	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        React.createElement(
+	        _react2.default.createElement(
 	          'div',
 	          { className: 'posts' },
 	          (posts || []).map(function (post, index) {
 	            return (0, _Post2.default)(post, index, false);
 	          })
 	        ),
-	        React.createElement(_Pager2.default, this.props)
+	        _react2.default.createElement(_Pager2.default, this.props)
 	      );
 	    }
 	  }]);
 	  return Home;
-	}(_react.Component);
+	}(_react2.default.Component);
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  return state;
@@ -5920,6 +5953,8 @@
 	
 	var _react = __webpack_require__(1);
 	
+	var _react2 = _interopRequireDefault(_react);
+	
 	var _Post = __webpack_require__(36);
 	
 	var _Post2 = _interopRequireDefault(_Post);
@@ -5938,8 +5973,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Po = function (_Component) {
-	  (0, _inherits3.default)(Po, _Component);
+	var Po = function (_React$Component) {
+	  (0, _inherits3.default)(Po, _React$Component);
 	
 	  function Po(props) {
 	    (0, _classCallCheck3.default)(this, Po);
@@ -5988,7 +6023,7 @@
 	      var post = this.props.post;
 	
 	
-	      return React.createElement(
+	      return _react2.default.createElement(
 	        'div',
 	        { className: 'posts' },
 	        post && (0, _Post2.default)(post, 0, true)
@@ -5996,7 +6031,7 @@
 	    }
 	  }]);
 	  return Po;
-	}(_react.Component);
+	}(_react2.default.Component);
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  return state;
@@ -6038,6 +6073,8 @@
 	
 	var _react = __webpack_require__(1);
 	
+	var _react2 = _interopRequireDefault(_react);
+	
 	var _Post = __webpack_require__(36);
 	
 	var _Post2 = _interopRequireDefault(_Post);
@@ -6060,8 +6097,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var S = function (_Component) {
-	  (0, _inherits3.default)(S, _Component);
+	var S = function (_React$Component) {
+	  (0, _inherits3.default)(S, _React$Component);
 	
 	  function S(props) {
 	    (0, _classCallCheck3.default)(this, S);
@@ -6103,27 +6140,27 @@
 	      var posts = this.props.posts || [];
 	      var query = this.props.location.query;
 	
-	      return React.createElement(
+	      return _react2.default.createElement(
 	        'div',
 	        { className: 'posts' },
 	        posts.length ? posts.map(function (post, index) {
 	          return (0, _Post2.default)(post, index, false);
-	        }) : React.createElement(
+	        }) : _react2.default.createElement(
 	          'p',
 	          null,
 	          'can not find any post with keyword: ',
-	          React.createElement(
+	          _react2.default.createElement(
 	            'b',
 	            { className: 'text-danger' },
 	            query.title
 	          )
 	        ),
-	        React.createElement(_Pager2.default, this.props)
+	        _react2.default.createElement(_Pager2.default, this.props)
 	      );
 	    }
 	  }]);
 	  return S;
-	}(_react.Component);
+	}(_react2.default.Component);
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  return state;
@@ -6222,9 +6259,9 @@
 	'use strict';
 	
 	if (true) {
-	  module.exports = __webpack_require__(117);
+	  module.exports = __webpack_require__(117).default;
 	} else {
-	  module.exports = require('./dev');
+	  module.exports = require('./dev').default;
 	}
 
 /***/ },

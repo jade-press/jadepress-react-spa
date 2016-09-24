@@ -25,7 +25,7 @@ export function getPosts(data, type, cb) {
 
     //statrt
     onload(dispatch, true)
-    let res = await fetch.post(url.get_posts, data)
+    let res = await fetch.get(url.get_posts, data)
     onload(dispatch, false)
     dispatch({
       type: types[type]
@@ -48,7 +48,7 @@ export function getCats(data, type, cb) {
 
     //statrt
     onload(dispatch, true)
-    let res = await fetch.post(url.get_cats, data)
+    let res = await fetch.get(url.get_cats, data)
     onload(dispatch, false)
     dispatch({
       type: types[type]

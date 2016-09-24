@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../actions'
@@ -7,7 +7,7 @@ import Title from '../components/Title'
 import Footer from '../components/Footer'
 import { siteName } from '../common/constants'
 
-class App extends Component {
+class App extends React.Component {
 
   constructor(props) {
 
@@ -23,7 +23,7 @@ class App extends Component {
 
   checkTitle() {
     let {title} = this.props
-    document.title = title + (title?' - ':'') + siteName
+    if (typeof document !== 'undefined') document.title = title + (title?' - ':'') + siteName
   }
 
   componentDidMount() {
