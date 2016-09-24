@@ -26,8 +26,11 @@ class App extends React.Component {
     if (typeof document !== 'undefined') document.title = title + (title?' - ':'') + siteName
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.getCats({}, 'set_cats')
+  }
+
+  componentDidMount() {
     $(window).on('resize', this.checkNavBar)
     this.checkNavBar()
   }

@@ -63,7 +63,7 @@ extend.publicCats = function* (next) {
 
 	try {
 
-		let res = yield extend.publicCatspromise(this.request.body, this.local.host)
+		let res = yield extend.publicCatspromise(this.query, this.local.host)
 		let user = this.session.user
 		this.body = res
 
@@ -108,7 +108,7 @@ extend.publicPosts = function* (next) {
 
 	try {
 
-		let res = yield extend.publicPostsPromise(this.request.body, this.local.host)
+		let res = yield extend.publicPostsPromise(this.query, this.local.host)
 
 		this.body = res
 

@@ -28,7 +28,7 @@ class Home extends React.Component {
     })
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.ajax()
   }
 

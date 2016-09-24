@@ -31,7 +31,7 @@ class Po extends React.Component {
     })
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.ajax()
   }
 

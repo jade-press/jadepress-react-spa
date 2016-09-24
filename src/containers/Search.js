@@ -27,7 +27,7 @@ class S extends React.Component {
     })
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.ajax()
   }
 

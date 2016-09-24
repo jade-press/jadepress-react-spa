@@ -36,7 +36,7 @@ class Cat extends React.Component {
     })
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.ajax()
   }
 
