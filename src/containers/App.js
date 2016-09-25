@@ -15,6 +15,10 @@ class App extends React.Component {
     this.checkTitle()
   }
 
+  static async FetchData(props) {
+    await props.getCats({}, 'set_cats')
+  }
+
   checkNavBar() {
     //collapse button
     if(!$('.navbar-toggler').is(':visible')) $('#menus').addClass('in')
@@ -26,11 +30,8 @@ class App extends React.Component {
     if (typeof document !== 'undefined') document.title = title + (title?' - ':'') + siteName
   }
 
-  componentWillMount() {
-    this.props.getCats({}, 'set_cats')
-  }
-
   componentDidMount() {
+    App.FetchData(this.props)
     $(window).on('resize', this.checkNavBar)
     this.checkNavBar()
   }

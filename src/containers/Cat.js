@@ -16,28 +16,30 @@ class Cat extends React.Component {
 
   }
 
-  ajax(nextProps) {
-    let props = nextProps || this.props
+  static async fetchData(props) {
     let {params} = props
     let prop = Object.keys(params)[0]
     let {query} = props.location
-    this.props.getPosts({
-      ...query,
-      ['cat' + prop]: params[prop]
-    }, 'set_posts')
-    this.props.getCats({
+
+    await props.getCats({
       ...query,
       [prop]: params[prop]
     }, 'set_cat', (res) => {
-      this.props.setProp({
+      props.setProp({
         type: types.set_title
         ,data: 'category:' + res.result[0].name
       })
     })
+
+    await props.getPosts({
+      ...query,
+      ['cat' + prop]: params[prop]
+    }, 'set_posts')
+
   }
 
-  componentWillMount() {
-    this.ajax()
+  componentDidMount() {
+    Cat.fetchData(this.props)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -45,7 +47,7 @@ class Cat extends React.Component {
       JSON.stringify(nextProps.params) !== JSON.stringify(this.props.params) ||
       JSON.stringify(nextProps.location.query) !== JSON.stringify(this.props.location.query)
       ) {
-      this.ajax(nextProps)
+      Cat.fetchData(nextProps)
     }
   }
 

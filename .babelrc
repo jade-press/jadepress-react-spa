@@ -13,6 +13,6 @@
         "polyfill": false,
         "regenerator": true
       }
-    ],
+    ]
   ]
 }

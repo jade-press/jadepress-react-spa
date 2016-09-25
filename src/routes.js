@@ -6,9 +6,12 @@ import Post from './containers/Post'
 import Cat from './containers/Cat'
 import Search from './containers/Search'
 import { publicRoute } from './common/constants'
+import createStore from './store/configureStore'
 const { cat, post, home } = publicRoute
 
-export default (
+const store = createStore()
+
+const routes = (
   <Router history={browserHistory}>
     <Route path={home} component={App}>
       <IndexRoute component={Home} />
@@ -18,3 +21,5 @@ export default (
     </Route>
   </Router>
 )
+
+export { store, routes }

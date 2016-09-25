@@ -13,8 +13,8 @@ class Po extends React.Component {
 
   }
 
-  ajax(nextProps = this.props) {
-    let {params} = nextProps
+  static async fetchData(props) {
+    let {params} = props
     let pps = Object.keys(params)
     let {postSlug} = params
     let {query} = this.props.location
@@ -23,23 +23,23 @@ class Po extends React.Component {
       prev[prop] = params[prop]
       return prev
     }, {})
-    this.props.getPosts(req, 'set_post', (res) => {
-      this.props.setProp({
+    await props.getPosts(req, 'set_post', (res) => {
+      props.setProp({
         type: types.set_title
         ,data: res.result[0].title
       })
     })
   }
 
-  componentWillMount() {
-    this.ajax()
+  componentDidMount() {
+    Po.fetchData(this.props)
   }
 
   componentWillReceiveProps(nextProps) {
     if(
       JSON.stringify(nextProps.params) !== JSON.stringify(this.props.params)
       ) {
-      this.ajax(nextProps)
+      Po.fetchData(nextProps)
     }
   }
 

@@ -14,27 +14,26 @@ class Home extends React.Component {
 
   }
 
-  ajax(nextProps) {
-    let props = nextProps || this.props
+  static async fetchData(props) {
     let {params} = props
     let {query} = props.location
-    this.props.getPosts({
+    await props.getPosts({
       ...query
     }, 'set_posts', () => {
-      this.props.setProp({
+      props.setProp({
         type: types.set_title
         ,data: ''
       })
     })
   }
 
-  componentWillMount() {
-    this.ajax()
+  componentDidMount() {
+    Home.fetchData(this.props)
   }
 
   componentWillReceiveProps(nextProps) {
     if(JSON.stringify(nextProps.location.query) !== JSON.stringify(this.props.location.query)) {
-      this.ajax(nextProps)
+      Home.fetchData(nextProps)
     }
   }
 

@@ -1,4 +1,4 @@
 
 export default (err) => {
-  alert(err.stack || err)
+  if(typeof alert !== 'undefined') alert(err.stack || err)
 }

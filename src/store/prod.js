@@ -1,18 +1,17 @@
-import { createStore, applyMiddleware, compose } from 'redux'
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 import reducers from '../reducers'
 
 const composedCreateStore = compose(
-  applyMiddleware(thunk),
-  // 只支持 chrome 插件的方式，不引入其它代码
-  // window.devToolsExtension && window.devToolsExtension()
+  applyMiddleware(thunk)
 )(createStore)
 
-export default function configureStore(preloadedState = {}) {
+export default function configureStore(preloadedState) {
 
   const store = composedCreateStore(
-    reducers
-    ,preloadedState
+    preloadedState
+    ? combineReducers(reducers, preloadedState)
+    : reducers
   )
 
   return store

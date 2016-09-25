@@ -14,26 +14,26 @@ class S extends React.Component {
 
   }
 
-  ajax(props = this.props) {
+  static async fetchData(props) {
     let {params} = props
     let {query} = props.location
-    this.props.getPosts({
+    await props.getPosts({
       ...query
     }, 'set_posts', () => {
-      this.props.setProp({
+      props.setProp({
         type: types.set_title
         ,data: 'search "' + query.title + '"'
       })
     })
   }
 
-  componentWillMount() {
-    this.ajax()
+  componentDidMount() {
+    S.fetchData(this.props)
   }
 
   componentWillReceiveProps(nextProps) {
     if(JSON.stringify(nextProps.location.query) !== JSON.stringify(this.props.location.query)) {
-      this.ajax(nextProps)
+      S.fetchData(nextProps)
     }
   }
 
