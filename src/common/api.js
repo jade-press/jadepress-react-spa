@@ -1,4 +1,6 @@
+
+import { host } from './constants'
 export default {
-  get_posts: '/public-posts',
-  get_cats: '/public-cats'
+  get_posts: host + '/public-posts',
+  get_cats: host + '/public-cats'
 }

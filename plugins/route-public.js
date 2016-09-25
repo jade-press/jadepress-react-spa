@@ -19,6 +19,7 @@ local = ext.local
 ,buildThemeRes = tools.buildThemeRes
 ,_ = require('lodash')
 ,app = require('./app').default
+,serialize = require('serialize-javascript')
 
 let extend = {}
 let basicPostFields = {
@@ -135,7 +136,9 @@ extend.post = extend.home = extend.cat = extend.search = function* (next) {
 		let user = this.session.user
 		this.local.user = user
 		let res = yield app(this.local, this)
-		if(res.html) this.local.html = res.html
+		if(res.html) Object.assign(this.local, res, {
+      serialize
+    })
 		this.render(baseThemeViewPath + 'index', this.local)
 
 	} catch(e) {

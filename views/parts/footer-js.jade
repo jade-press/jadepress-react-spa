@@ -1,31 +1,32 @@
 script.
-	window.h5 = {
-		host: '#{host}'
-		,href: '#{href}'
-		,path: '#{path}'
-		,cdn: '#{cdn}'
-		,fileServer: '#{fileServer}'
-		,publicRoute: !{JSON.stringify(publicRoute)}
-		,siteName: '#{siteName}'
-		,pageSize: #{pageSize || 10}
-		,maxLink: #{maxLink || 5}
-		,user: !{JSON.stringify(user) || false}
-	}
+  window.h5 = {
+    host: '#{host}'
+    ,href: '#{href}'
+    ,path: '#{path}'
+    ,cdn: '#{cdn}'
+    ,fileServer: '#{fileServer}'
+    ,publicRoute: !{JSON.stringify(publicRoute)}
+    ,siteName: '#{siteName}'
+    ,pageSize: #{pageSize || 10}
+    ,maxLink: #{maxLink || 5}
+    ,user: !{JSON.stringify(user) || false}
+    ,state: !{serialize(state || {})}
+  }
 
 - if(usePublicCdn)
-	script(src='//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.1.min.js')
-	script(src='//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js')
-	script(src='//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js')
-	script(src='//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js')
-	script(src='//cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react.min.js')
-	script(src='//cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react-dom.min.js')
+  script(src='//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.1.min.js')
+  script(src='//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js')
+  script(src='//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js')
+  script(src='//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js')
+  script(src='//cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react.min.js')
+  script(src='//cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react-dom.min.js')
 
 - else
-	script(src='#{cdn}/_bc/jquery/dist/jquery.js')
-	script(src='#{cdn}/_bc/tether/dist/js/tether.js')
-	script(src='#{cdn}/_bc/bootstrap/dist/js/bootstrap.js')
-	script(src='#{cdn}/_bc/google-code-prettify/bin/prettify.min.js')
-	script(src='#{cdn}/_bc/react/dist/react.js')
-	script(src='#{cdn}/_bc/react-dom/dist/react-dom.js')
+  script(src='#{cdn}/_bc/jquery/dist/jquery.js')
+  script(src='#{cdn}/_bc/tether/dist/js/tether.js')
+  script(src='#{cdn}/_bc/bootstrap/dist/js/bootstrap.js')
+  script(src='#{cdn}/_bc/google-code-prettify/bin/prettify.min.js')
+  script(src='#{cdn}/_bc/react/dist/react.js')
+  script(src='#{cdn}/_bc/react-dom/dist/react-dom.js')
 
 script(src='#{themeResDev||themeRes}/js/app.min.js?#{themeVersion}')

@@ -9,7 +9,11 @@ import { publicRoute } from './common/constants'
 import createStore from './store/configureStore'
 const { cat, post, home } = publicRoute
 
-const store = createStore()
+const store = createStore(
+  typeof window === 'undefined'
+  ? {}
+  : window.h5.state
+)
 
 const routes = (
   <Router history={browserHistory}>

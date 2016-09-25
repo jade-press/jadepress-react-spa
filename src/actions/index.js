@@ -1,5 +1,5 @@
 
-import { host, siteName } from '../common/constants'
+import { siteName } from '../common/constants'
 import url from '../common/api'
 import { types } from '../reducers'
 import fetch from '../common/fetch'
