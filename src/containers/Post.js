@@ -17,7 +17,7 @@ class Po extends React.Component {
     let {params} = props
     let pps = Object.keys(params)
     let {postSlug} = params
-    let {query} = this.props.location
+    let {query} = props.location
     let req = pps.reduce((prev, prop) => {
       if(prop.indexOf('cat') > -1) return prev
       prev[prop] = params[prop]

@@ -6171,7 +6171,7 @@
 	                params = props.params;
 	                pps = Object.keys(params);
 	                postSlug = params.postSlug;
-	                query = this.props.location.query;
+	                query = props.location.query;
 	                req = pps.reduce(function (prev, prop) {
 	                  if (prop.indexOf('cat') > -1) return prev;
 	                  prev[prop] = params[prop];

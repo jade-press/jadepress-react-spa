@@ -1,7 +1,7 @@
 include parts/head1
 meta(name='description', content='#{siteDesc}')
 meta(name='keywords', content='#{siteKeywords}')
-title #{siteName}
+title #{ state && state.title ? (state.title + ' - ' + siteName) : siteName}
 include parts/head2
 #wrapper !{html||''}
 include parts/footer-js
