@@ -25,11 +25,12 @@ export default async function (glob, ctx) {
   let { renderProps } = await getRenderProps({ routes, location: ctx.originalUrl })
   let { dispatch } = store
   let acts = mapDispatchToProps(dispatch)
-  let fetchs = renderProps.components.map(c => c?c.WrappedComponent.fetchData:false)
-
+  let fetchs = renderProps.components.map(c => {
+    return c?c.WrappedComponent.fetchData:false
+  })
   for(let i = 0, len = fetchs.length;i < len;i ++) {
-    let fetch = fetchs[i]
-    if(fetch) await fetch({...renderProps, ...acts})
+    let fet = fetchs[i]
+    if(fet) await fet({...renderProps, ...acts})
   }
 
   let state = store.getState()

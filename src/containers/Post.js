@@ -23,6 +23,7 @@ class Po extends React.Component {
       prev[prop] = params[prop]
       return prev
     }, {})
+    
     await props.getPosts(req, 'set_post', (res) => {
       props.setProp({
         type: types.set_title

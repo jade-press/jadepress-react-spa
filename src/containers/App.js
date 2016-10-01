@@ -15,7 +15,7 @@ class App extends React.Component {
     this.checkTitle()
   }
 
-  static async FetchData(props) {
+  static async fetchData(props) {
     await props.getCats({}, 'set_cats')
   }
 
@@ -31,7 +31,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    App.FetchData(this.props)
+    App.fetchData(this.props)
     $(window).on('resize', this.checkNavBar)
     this.checkNavBar()
   }

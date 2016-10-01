@@ -5249,6 +5249,7 @@
 	
 	var _constants = __webpack_require__(6);
 	
+	console.log(_constants.host, 'host');
 	exports.default = {
 	  get_posts: _constants.host + '/public-posts',
 	  get_cats: _constants.host + '/public-cats'
@@ -5670,7 +5671,7 @@
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      App.FetchData(this.props);
+	      App.fetchData(this.props);
 	      $(window).on('resize', this.checkNavBar);
 	      this.checkNavBar();
 	    }
@@ -5712,7 +5713,7 @@
 	      );
 	    }
 	  }], [{
-	    key: 'FetchData',
+	    key: 'fetchData',
 	    value: function () {
 	      var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(props) {
 	        return _regenerator2.default.wrap(function _callee$(_context) {
@@ -5730,11 +5731,11 @@
 	        }, _callee, this);
 	      }));
 	
-	      function FetchData(_x) {
+	      function fetchData(_x) {
 	        return _ref.apply(this, arguments);
 	      }
 	
-	      return FetchData;
+	      return fetchData;
 	    }()
 	  }]);
 	  return App;

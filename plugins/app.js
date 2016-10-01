@@ -118,7 +118,7 @@ module.exports =
 	
 	exports.default = function () {
 	  var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(glob, ctx) {
-	    var _require, Provider, _require2, routes, store, actions, mapDispatchToProps, _ref3, renderProps, dispatch, acts, fetchs, i, len, fetch, state;
+	    var _require, Provider, _require2, routes, store, actions, mapDispatchToProps, _ref3, renderProps, dispatch, acts, fetchs, i, len, fet, state;
 	
 	    return _regenerator2.default.wrap(function _callee$(_context) {
 	      while (1) {
@@ -156,15 +156,15 @@ module.exports =
 	              break;
 	            }
 	
-	            fetch = fetchs[i];
+	            fet = fetchs[i];
 	
-	            if (!fetch) {
+	            if (!fet) {
 	              _context.next = 21;
 	              break;
 	            }
 	
 	            _context.next = 21;
-	            return fetch((0, _extends3.default)({}, renderProps, acts));
+	            return fet((0, _extends3.default)({}, renderProps, acts));
 	
 	          case 21:
 	            i++;
@@ -17878,6 +17878,7 @@ module.exports =
 	
 	var _constants = __webpack_require__(12);
 	
+	console.log(_constants.host, 'host');
 	exports.default = {
 	  get_posts: _constants.host + '/public-posts',
 	  get_cats: _constants.host + '/public-cats'
@@ -18299,7 +18300,7 @@ module.exports =
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      App.FetchData(this.props);
+	      App.fetchData(this.props);
 	      $(window).on('resize', this.checkNavBar);
 	      this.checkNavBar();
 	    }
@@ -18341,7 +18342,7 @@ module.exports =
 	      );
 	    }
 	  }], [{
-	    key: 'FetchData',
+	    key: 'fetchData',
 	    value: function () {
 	      var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(props) {
 	        return _regenerator2.default.wrap(function _callee$(_context) {
@@ -18359,11 +18360,11 @@ module.exports =
 	        }, _callee, this);
 	      }));
 	
-	      function FetchData(_x) {
+	      function fetchData(_x) {
 	        return _ref.apply(this, arguments);
 	      }
 	
-	      return FetchData;
+	      return fetchData;
 	    }()
 	  }]);
 	  return App;

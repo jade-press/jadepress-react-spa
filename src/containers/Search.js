@@ -17,6 +17,7 @@ class S extends React.Component {
   static async fetchData(props) {
     let {params} = props
     let {query} = props.location
+    
     await props.getPosts({
       ...query
     }, 'set_posts', () => {
