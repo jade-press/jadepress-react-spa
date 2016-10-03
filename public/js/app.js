@@ -5671,7 +5671,11 @@
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      App.fetchData(this.props);
+	      if (!window.h5.state.cats) {
+	        App.fetchData(this.props);
+	      } else {
+	        delete window.h5.state.cats;
+	      }
 	      $(window).on('resize', this.checkNavBar);
 	      this.checkNavBar();
 	    }
@@ -5833,7 +5837,10 @@
 	  (0, _createClass3.default)(Cat, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      Cat.fetchData(this.props);
+	      if (!window.h5.state.posts) {
+	        Cat.fetchData(this.props);
+	      } else delete window.h5.state.posts;
+	      window.prettyPrint();
 	    }
 	  }, {
 	    key: 'componentWillReceiveProps',
@@ -5995,7 +6002,10 @@
 	  (0, _createClass3.default)(Home, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      Home.fetchData(this.props);
+	      if (!window.h5.state.posts) {
+	        Home.fetchData(this.props);
+	      } else delete window.h5.state.posts;
+	      window.prettyPrint();
 	    }
 	  }, {
 	    key: 'componentWillReceiveProps',
@@ -6139,7 +6149,10 @@
 	  (0, _createClass3.default)(Po, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      Po.fetchData(this.props);
+	      if (!window.h5.state.posts) {
+	        Po.fetchData(this.props);
+	      } else delete window.h5.state.posts;
+	      window.prettyPrint();
 	    }
 	  }, {
 	    key: 'componentWillReceiveProps',
@@ -6287,7 +6300,10 @@
 	  (0, _createClass3.default)(S, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      S.fetchData(this.props);
+	      if (!window.h5.state.posts) {
+	        S.fetchData(this.props);
+	      } else delete window.h5.state.posts;
+	      window.prettyPrint();
 	    }
 	  }, {
 	    key: 'componentWillReceiveProps',

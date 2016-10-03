@@ -29,7 +29,10 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    Home.fetchData(this.props)
+    if (!window.h5.state.posts) {
+      Home.fetchData(this.props)
+    } else delete window.h5.state.posts
+    window.prettyPrint()
   }
 
   componentWillReceiveProps(nextProps) {

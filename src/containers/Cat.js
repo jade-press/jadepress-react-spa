@@ -39,7 +39,10 @@ class Cat extends React.Component {
   }
 
   componentDidMount() {
-    Cat.fetchData(this.props)
+    if (!window.h5.state.posts) {
+      Cat.fetchData(this.props)
+    } else delete window.h5.state.posts
+    window.prettyPrint()
   }
 
   componentWillReceiveProps(nextProps) {

@@ -33,7 +33,10 @@ class Po extends React.Component {
   }
 
   componentDidMount() {
-    Po.fetchData(this.props)
+    if (!window.h5.state.posts) {
+      Po.fetchData(this.props)
+    } else delete window.h5.state.posts
+    window.prettyPrint()
   }
 
   componentWillReceiveProps(nextProps) {
